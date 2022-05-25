@@ -1,0 +1,30 @@
+.banner {
+    padding-top: 105px;
+    padding-bottom: 40px;
+    top: 73px;
+    left: -158px;
+    width: 2288px;
+    height: 1024px;
+    background: transparent linear-gradient(90deg, #ECECEC 0%, #E0E0E0 50%, #ECECEC 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.brand-banner {
+    top: 261px;
+    left: 88px;
+    width: 452px;
+    height: 187px;
+    background: transparent url('../images/brand-rbg.png') 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+#model_1 {
+    top: 73px;
+    margin-left: 30%;
+    left: 1007px;
+    width: 758px;
+    height: 1137px;
+    background: transparent url('../images/model_1.png') 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+

@@ -1,0 +1,66 @@
+.navbar-brand {
+    top: 0px;
+    left: 104px;
+    width: 292px;
+    height: 121px;
+    background: transparent url('../images/brand.PNG') 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.search-bar {
+    top: 34px;
+    left: 442px;
+    width: 524px;
+    height: 69px;
+    
+    background: 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.navigator {
+    top: 49px;
+    left: 1030px;
+    width: 563px;
+    height: 49px;
+    opacity: 1;
+}
+
+.nav-item {
+    top: 49px;
+    left: 1030px;
+    width: 138px;
+    height: 49px;
+    text-align: center;
+    font: normal normal medium 40px/49px Montserrat;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+
+/* .navbar-icon {
+    top: 34px;
+    left: 1657px;
+    width: 120px;
+    height: 48px;
+    opacity: 1;
+}
+
+.nav-icon {
+    top: 55px;
+    left: 1753px;
+    width: 24px;
+    height: 27px;
+    opacity: 1;
+    margin-left: 40px;
+} */
+
+/* .navbar {
+    top: -67px;
+    left: -48px;
+    width: 2027px;
+    height: 207px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    opacity: 1;
+} */
+
+
