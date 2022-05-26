@@ -150,3 +150,10 @@ margin-left: -15px;
 .register a strong {
     color: #005FFF;
 }
+
+h4 {
+    border: 2px solid red;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(255, 206, 206);
+}

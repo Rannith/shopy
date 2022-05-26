@@ -1,0 +1,32 @@
+{
+  "user": [
+    {
+      "id": "1",
+      "name": "Rannith",
+      "email": "kmrannithvikram451@gmail.com",
+      "phone": "9751612739",
+      "password": "qwertyuiop"
+    },
+    {
+      "id": "2",
+      "name": "vikram",
+      "email": "vikram451@gmail.com",
+      "phone": "6369118051",
+      "password": "poiuytrewq"
+    },
+    {
+      "name": "Mohandoss",
+      "email": "mohandoss@yahoo.com",
+      "phone": "9223447381",
+      "password": "asdfghjkl",
+      "id": "57pYU_c"
+    },
+    {
+      "name": "Prithvi",
+      "email": "prithvi@gamil.com",
+      "phone": "6369127258",
+      "password": "prithvi24rj",
+      "id": "yvJUnYh"
+    }
+  ]
+}
