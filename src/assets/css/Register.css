@@ -151,9 +151,13 @@ margin-left: -15px;
     color: #005FFF;
 }
 
-h4 {
+.auth-wrapper h4 {
     border: 2px solid red;
     border-radius: 10px;
     text-align: center;
     background-color: rgb(255, 206, 206);
+}
+
+.edit-product {
+    background-color: #f4f4f4;
 }

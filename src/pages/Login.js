@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../assets/css/Register.css'
 import login from '../assets/images/login.jpg'
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+import { loadUsers } from '../redux/action'
+import CryptoJS from 'crypto-js'
 // import { selectUser } from '../../../feature/UserSlice';
 
 function Login() {
@@ -15,6 +17,11 @@ function Login() {
 
     const emailField = document.getElementById('email');
     const passwordField = document.getElementById('password');
+
+    let currentDate = new Date();
+    let currentTime = currentDate.getHours();
+
+    console.log( "Time is", currentTime)
 
     const validate = () => {
 
@@ -67,22 +74,84 @@ function Login() {
 
     //     if(!(email === user.email && password === user.password)) {
     //         console.log('autherntication failed')
-    //         emailField.classList.add('is-invalid')
-    //         passwordField.classList.add('is-invalid')
-    //         button.classList.add('is-invalid')
+            // emailField.classList.add('is-invalid')
+            // passwordField.classList.add('is-invalid')
+            // button.classList.add('is-invalid')
 
     //         return false
     //     }
     //     else{
-    //         passwordField.classList.remove('is-invalid')
-    //         emailField.classList.remove('is-invalid')
-    //         button.classList.remove('is-invalid')
+            // passwordField.classList.remove('is-invalid')
+            // emailField.classList.remove('is-invalid')
+            // button.classList.remove('is-invalid')
     //     }
 
     //     return true
     // }
-
     const navigate = useNavigate();
+
+    let dispatch = useDispatch();
+    const { users } = useSelector(state => state.data)
+
+    useEffect(() => {
+        dispatch(loadUsers())
+    }, [])
+
+    const createToken = () => {
+
+        let data = {
+            email: email,
+            password: password,
+            currentTime: currentTime
+        }
+        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), "qwertyuiop").toString();
+
+        return ciphertext
+
+    }
+
+    // const decryptToken = (encryptData) => {
+
+    //     var bytes = CryptoJS.AES.decrypt(encryptData, "qwertyuiop"); 
+    //     var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)); 
+
+    //     console.log("Original data :", decryptedData);
+    // }
+
+    const authentication = () => {
+        console.log("user", users)
+
+        let profile = users.find((index) => index.email === email && index.password === password)
+        const button = document.getElementById('login-button');
+
+        console.log("pro",profile)
+
+        if(profile !== undefined) {
+            localStorage.setItem("id", profile.id)
+            let token = createToken()
+            localStorage.setItem("token", token)
+            console.log("USER FOUND")
+            passwordField.classList.remove('is-invalid')
+            emailField.classList.remove('is-invalid')
+            button.classList.remove('is-invalid')
+            return true
+        }
+        else {
+            console.log("USER NOT FOUND")
+            emailField.classList.add('is-invalid')
+            passwordField.classList.add('is-invalid')
+            button.classList.add('is-invalid')
+            return false
+        }
+    }
+
+    // const { user, error } = useSelector((state) => state.auth);
+
+    // useEffect(() => {
+    //     if(user) {
+    //         navigate('/');
+    //     }
+    // }, [user])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -90,11 +159,12 @@ function Login() {
         console.log('in handlesubmit')
 
         const isValid = validate();
-        // const auth = authentication();
+        const auth = authentication();
+        // dispatch(loginInitiate(email, password));
 
-        if(isValid ) {   //old code: if(isValid && auth)
+        if(isValid && auth ) {   //old code: if(isValid && auth)
             
-            navigate('/home');
+            navigate('/');
             
         }
     }
@@ -106,6 +176,7 @@ function Login() {
                 <div className='row'>
                     <div className='col-lg-10 offset-lg-1'>
                         <section className='auth-wrapper'>
+                            <Link to='/' className='btn btn-primary mb-5'><i className="fa fa-arrow-left" aria-hidden="true"></i> Go Home</Link>
                             <div className='row'>
                                 <div className='col-md-6 mb-4 mb-md-0'>
                                     <h2 className='auth-section-title'>Log In</h2>
@@ -133,7 +204,7 @@ function Login() {
                                         <h4 className='invalid-feedback' >Login failed Check Email Id or Password</h4>
                                     </form>
                                     <p className="mb-0">
-                                        <Link to='/' className="text-dark font-weight-bold">New User? Sign Up</Link>
+                                        <Link to='/register' className="text-dark font-weight-bold">New User? Sign Up</Link>
                                     </p>
                                 </div>
                                 <div className="col-md-6 d-flex align-items-center">

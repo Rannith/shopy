@@ -1,33 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import '../assets/css/Register.css'
-import register from '../assets/images/register.jpg'
-// import { login, selectUser } from '../../../feature/UserSlice';
-import { Link,  useNavigate } from 'react-router-dom';
+import { Link,  useNavigate, useParams } from 'react-router-dom';
 // import api from '../api/user'
-import { addUser } from '../redux/action';
-// import { signUp } from '../redux/authAction';
+import { getSingleUser, updateUser } from '../redux/action';
 
-function Register() {
+function EditUser() {
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phone, setPhone] = useState("");
 
-    // const [state, setState] = useState({
-    //     name: "",
-    //     email: "",
-    //     phone: "",
-    //     password: ""
-    // })
+    // const [name, setName] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [phone, setPhone] = useState("");
 
-    // const {name, email, phone, password} = state;
+    const [state, setState] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        password: ""
+    })
+
+    const {name, email, phone, password} = state;
+
+    const handleInputChange = (e) => {
+        let { name, value } = e.target;
+        setState({ ...state, [name]: value });
+    };
 
     let [nameError, setNameError] = useState("");
     let [emailError, setEmailError] = useState("");
     let [passwordError, setPasswordError] = useState("");
     let [phoneError, setPhoneError] = useState("");
+
+    const dispatch = useDispatch();
+    // const user = useSelector(selectUser);
+
+    //Retrive User 
+    // const retriveUser =async () => {
+    //     const response =await api.get("/user");
+    //     return response.data;
+    // };
 
     const validate = () => {
         console.log("in validate")
@@ -112,9 +123,20 @@ function Register() {
     }
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const state = useSelector(state => state)
-    console.log("state:", state)
+    let { id } = useParams();
+    const { user } = useSelector((state) => state.data);
+
+    console.log("get single user id :", id)
+
+    useEffect(() => {
+        dispatch(getSingleUser(id))
+    }, [])
+
+    useEffect(() => {
+        if(user) {
+            setState({...user});
+        }
+    }, [user])
 
     const userData = {
         name:name,
@@ -129,19 +151,9 @@ function Register() {
         const isValid = validate();
 
         if(isValid) {
+            dispatch(updateUser(userData, id))
 
-            // dispatch(login({
-            //     name:name,
-            //     email:email,
-            //     phone:phone,
-            //     password:password,
-            //     loggedIn:true
-            // }))
-
-            dispatch(addUser(userData))
-            // dispatch(signUp(userData));
-
-            // navigate('/login');
+            navigate('/');
             
         }
 
@@ -149,45 +161,42 @@ function Register() {
 
   return (
     <>
-      <main className='page-auth register'>
+      <main className='page-auth'>
             <div className='container'>
                 <div className='row'>
                     <div className='col-lg-10 offset-lg-1'>
                         <section className='auth-wrapper'>
-                        <Link to='/' className='btn btn-primary mb-5'><i className="fa fa-arrow-left" aria-hidden="true"></i> Go Home</Link>
+                        <button className='btn btn-primary mb-5' onClick={() => navigate(-1)} ><i className="fa fa-arrow-left" aria-hidden="true"></i> Go Back</button>
                             <div className='row'>
                                 <div className='col-md-6 mb-4 mb-md-0'>
-                                    <h2 className='auth-section-title'>Create account</h2>
-                                    <p className='auth-section-subtitle'>Hey! you are going to be part of us</p>
+                                    <h2 className='auth-section-title'>Edit Profile</h2>
+                                    <p className='auth-section-subtitle'>Hey! something you want to change your personal data..Here it is</p>
                                     <form action='#' method='POST' onSubmit={handleSubmit} >
                                     <div className='form-group'>
                                         <label htmlFor='name'>Name<sup>*</sup></label>
-                                        <input type='text' className='form-control' id='name' name='name' placeholder='Name'  value={name} onChange={e => setName(e.target.value)}/>
+                                        <input type='text' className='form-control' id='name' name='name' placeholder='Name'  value={name || ""} onChange={handleInputChange}/>
                                         <strong className='invalid-feedback' >{nameError}</strong>
                                     </div>
                                     <div className='form-group'>
                                         <label htmlFor='email'>Email<sup>*</sup></label>
-                                        <input type='email' className='form-control' id='email' name='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)}/>
+                                        <input type='email' className='form-control' id='email' name='email' placeholder='Email' value={email || ""} onChange={handleInputChange}/>
                                         <strong className='invalid-feedback' >{emailError}</strong>
                                     </div>
                                     <div className='form-group'>
                                         <label htmlFor='phone'>Phone No<sup>*</sup></label>
-                                        <input type='tel' className='form-control' id='phone' name='phone' placeholder='Phone No'  value={phone} onChange={e => setPhone(e.target.value)}/>
+                                        <input type='tel' className='form-control' id='phone' name='phone' placeholder='Phone No'  value={phone || ""} onChange={handleInputChange}/>
                                         <strong className='invalid-feedback' >{phoneError}</strong>
                                     </div>
                                     <div className='form-group'>
                                         <label htmlFor='password'>Password<sup>*</sup></label>
-                                        <input type='password' className='form-control' id='password' name='password' placeholder='Password'  value={password} onChange={e => setPassword(e.target.value)}/>
+                                        <input type='text' className='form-control' id='password' name='password' placeholder='Password'  value={password || ""} onChange={handleInputChange}/>
                                         <strong className='invalid-feedback' >{passwordError}</strong>
                                     </div>
-                                    <button className='btn btn-primary btn-auth-submit' type='submit'>Create account</button>
+                                    <button className='btn btn-primary btn-auth-submit' type='submit'>Update Profile</button>
                                 </form>
-                                <p className='mb-0'>
-                                    <Link to='/login' className='text-dark font-weight-bold'>Already have a account?  <strong>Sign in</strong></Link>
-                                </p>
                                 </div>
                                 <div className="col-md-6 d-flex align-items-center">
-                                    <img src={register} alt="Register" className="img-fluid"/>
+                                    <img src="" alt="Edit Profile" className="img-fluid"/>
                                 </div>
                             </div>
                         </section>
@@ -199,4 +208,4 @@ function Register() {
   )
 }
 
-export default Register
+export default EditUser

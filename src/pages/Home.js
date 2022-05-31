@@ -1,12 +1,20 @@
 import React,{ useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteUser, loadUsers } from '../redux/action';
+import Header from './Header';
+import CategoryCard from './CategoryCard';
+import NewProducts from './NewProducts';
+import Footer from './Footer';
+
 
 function Home() {
 
     let dispatch = useDispatch();
     const { users } = useSelector(state => state.data)
+    // const { user } = useSelector(state => state.auth)
+
+    // console.log("home user", user)
 
     useEffect(() => {
         dispatch(loadUsers())
@@ -18,51 +26,16 @@ function Home() {
         }
     }
 
+    const navigate = useNavigate();
+
   return (
     <>
-      <h1>Welcome Youu...</h1>
-      <Link to="/register"><button>Sign up</button></Link>
-      {/* {
-          users.map((user) => (<ul key={user.id}>
-              <li>{user.name}</li>
-              <li>{user.email}</li>
-              <li>{user.phone}</li>
-              <li>{user.password}</li>
-              <li><button onClick={() => handleDelete(user.id)} >Delete</button></li>
-              <li><button>Edit</button></li>
-          </ul>))    
-      } */}
+      <Header />
+      <CategoryCard />
+      <NewProducts />
+      <Footer />
     </>
   )
 }
 
 export default Home
-
-
-//----------------------------------------------------------------------------------------------------
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { logout, selectUser } from '../../../feature/UserSlice';
-
-
-// function Home() {
-
-//     const user = useSelector(selectUser);
-
-//     const dispatch = useDispatch();
-
-//     const handleLogout = e => {
-//         e.preventDefault();
-
-//         dispatch(logout());
-//     }
-
-//     return (
-//         <>
-//             <h1>Welcome, {user.name}</h1>
-//             <button onClick={handleLogout} >Logout</button>
-//         </>
-//     )
-// }
-
-// export default Home

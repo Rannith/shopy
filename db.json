@@ -1,22 +1,8 @@
 {
   "user": [
     {
-      "id": "1",
-      "name": "Rannith",
-      "email": "kmrannithvikram451@gmail.com",
-      "phone": "9751612739",
-      "password": "qwertyuiop"
-    },
-    {
-      "id": "2",
-      "name": "vikram",
-      "email": "vikram451@gmail.com",
-      "phone": "6369118051",
-      "password": "poiuytrewq"
-    },
-    {
       "name": "Mohandoss",
-      "email": "mohandoss@yahoo.com",
+      "email": "mohandoss@gmail.com",
       "phone": "9223447381",
       "password": "asdfghjkl",
       "id": "57pYU_c"
@@ -25,8 +11,122 @@
       "name": "Prithvi",
       "email": "prithvi@gamil.com",
       "phone": "6369127258",
-      "password": "prithvi24rj",
+      "password": "somethingelse",
       "id": "yvJUnYh"
+    },
+    {
+      "name": "Rannith",
+      "email": "kmrannithvikram451@gmail.com",
+      "phone": "6369118051",
+      "password": "qwertyuiop",
+      "id": "3b2gAas"
+    },
+    {
+      "name": "Vikram",
+      "email": "vikram27@gmail.com",
+      "phone": "6963110815",
+      "password": "asdfghjkl",
+      "id": "c8_S0Al"
+    },
+    {
+      "name": "Sakthi",
+      "email": "sakthi23@gmail.com",
+      "phone": "6789003421",
+      "password": "1234567890",
+      "id": "khBlp9p"
+    },
+    {
+      "name": "Karthik",
+      "email": "kathik@gmail.com",
+      "phone": "9876543210",
+      "password": "qwertyuiop",
+      "id": "gYyAFmz"
+    },
+    {
+      "name": "Rannith",
+      "email": "rannithgaming@gmail.com",
+      "phone": "9751612739",
+      "password": "zxcvbnm12345",
+      "id": "r24chjF"
+    },
+    {
+      "name": "Rannith",
+      "email": "rannithgaming@gmail.com",
+      "phone": "9751612739",
+      "password": "qwertyuiop",
+      "id": "-1APQml"
+    },
+    {
+      "name": "Rathish",
+      "email": "rathishkumar@gmail.com",
+      "phone": "9988654451",
+      "password": "1234567890",
+      "id": "fHeg_Ys"
+    },
+    {
+      "name": "varalakshmi",
+      "email": "lakshmi@gmail.com",
+      "phone": "9988776655",
+      "password": "lakshmi13",
+      "id": "4f4BHuw"
+    },
+    {
+      "name": "Lakshmi",
+      "email": "lakshmi@gmail.com",
+      "phone": "9988776655",
+      "password": "1234567890",
+      "id": "iDO4wOZ"
+    }
+  ],
+  "admin": [
+    {
+      "name": "Admin",
+      "email": "admin@gmail.com",
+      "phone": "9223447381",
+      "password": "password",
+      "id": "1"
+    }
+  ],
+  "products": [
+    {
+      "productname": "Raymond Men's Wool Notch Lapel Suit",
+      "category": "suit",
+      "image": "https://m.media-amazon.com/images/I/71bHtyyJxNL._UX569_.jpg",
+      "oldprice": "6479.00",
+      "newprice": "5999.00",
+      "id": "NvRsklh"
+    },
+    {
+      "productname": "Titan Neo Iv Analog Black Dial Watch",
+      "category": "watch",
+      "image": "https://m.media-amazon.com/images/I/71xQq6cAhGL._UY550_.jpg",
+      "oldprice": "8000.00",
+      "newprice": "7,299.00",
+      "id": "MvrFlLe"
+    },
+    {
+      "productname": "Woodland Leather Sneaker",
+      "category": "shoe",
+      "image": "\thttps://m.media-amazon.com/images/I/71+YspqUrDL._UX695_.jpg",
+      "oldprice": "4789.00",
+      "newprice": "3,395.00",
+      "id": "OTdFCmV"
+    },
+    {
+      "productname": "BLIVE Henley Neck Full Sleeve T Shirts",
+      "category": "tshirt",
+      "image": "https://m.media-amazon.com/images/I/61hh8wS16wL._UX569_.jpg",
+      "oldprice": "660.00",
+      "newprice": "425.00",
+      "id": "jVESz9o"
+    },
+    {
+      "productname": "U.S. POLO ASSN. Men T-Shirt",
+      "category": "tshirt",
+      "image": "https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg",
+      "oldprice": "2000.00",
+      "newprice": "1800.00",
+      "id": "Q2NeNAC"
     }
   ]
 }

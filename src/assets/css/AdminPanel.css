@@ -1,0 +1,40 @@
+.admin-panel {
+    background-color: #f4f4f4;
+}
+
+.banner {
+    background: #a770ef;
+    background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+    background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+}
+
+.product-card {
+    margin-bottom: 26px;
+}
+
+.product-card {
+    position: relative;
+    margin-left: 20%;
+    height: 290px;
+    max-height: 290px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+}
+
+.admin-product .product-old-price {
+    position: relative;
+    padding: 0 7px;
+    margin-right: 2px;
+    opacity: 0.6;
+}
+
+.admin-product .product-old-price::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 33%;
+    height: 1px;    
+    background-color: #444444;
+}
