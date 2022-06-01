@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadProducts } from '../redux/action'
+import { addProductToCart, loadProducts, addQuantity } from '../redux/action'
 import '../assets/css/Products.css'
 import Header from './Header'
 import { useNavigate } from 'react-router-dom'
+import * as types from '../redux/actionType'
+import Footer from './Footer'
 
 function Products() {
 
@@ -15,6 +17,32 @@ function Products() {
     }, [])
 
     const { products } = useSelector(state => state.data);
+    const { value } = useSelector(state => state.data)
+
+    console.log("CART : ",value)
+
+    const addToCart = (product) => {
+        console.log("Product in Product:",product) 
+
+        const existingItem = value.find(item => item.id === product.id)
+        console.log("existing item",existingItem)
+        
+        if(existingItem) {
+            const id = existingItem.id
+            console.log("IIDD : ",id)
+            dispatch(addQuantity(id, existingItem))
+            // dispatch({
+            //     type: types.UPDATE_QTY,
+            //     payload: {
+            //         id,
+            //         quantity: parseInt(existingItem.quantity) + 1
+            //     }
+            // })
+        }
+        else {
+            dispatch(addProductToCart(product))
+        }
+    }
 
     return (
         <>
@@ -22,7 +50,7 @@ function Products() {
             <div className="container bg-white product-list">
                 <nav className="navbar navbar-expand-md navbar-light bg-white">
                     <div className="container-fluid p-0">
-                        <a className="navbar-brand text-uppercase fw-800" href="#">
+                        <a className="navbar-brand text-uppercase fw-800">
                             <span className="border-red pe-2">SHOPY</span>Our Products
                         </a>
                         <button
@@ -62,7 +90,7 @@ function Products() {
                         products.map((product) => {
                             return (
                                 <>
-                                    <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product">
+                                    <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product.id} >
                                         <div className="bg-white rounded shadow-sm">
                                             <img
                                                 src={product.image}
@@ -79,7 +107,7 @@ function Products() {
                                                 <h5 className="product-price">New Price: ₹{product.newprice}</h5>
                                                 <div className="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
                                                     <button className='btn btn-primary' onClick={() => navigate(`/viewproduct/${product.id}`)} >View Product</button>
-                                                    <button className='btn btn-success' >Add to Cart</button>
+                                                    <button className='btn btn-success' onClick={() => addToCart(product)}>Add to Cart</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,6 +118,7 @@ function Products() {
                     }
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

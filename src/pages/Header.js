@@ -48,12 +48,18 @@ function Header() {
         loggedIn = false
     }
 
+    const handleCart = (e) => {
+        e.preventDefault();
+
+        navigate('/cart')
+    }
+
     return (
         <>
             <div className="header-shopy">
                 <nav className="navbar navbar-dark navbar-expand-md navigation-clean-search">
                     <div className="container">
-                        <a className="navbar-brand" href="/">
+                        <a className="navbar-brand" onClick={() => navigate('/')}>
                             <img src={brand} alt='SHOPY' width={138} height={50} />
                         </a>
                         <button
@@ -67,17 +73,17 @@ function Header() {
                         <div className="collapse navbar-collapse" id="navcol-1">
                             <ul className="nav navbar-nav me-4">
                                 <li className="nav-item" role="presentation">
-                                    <a className="nav-link active" href="/">
+                                    <a className="nav-link active" onClick={() => navigate('/')}>
                                         Home
                                     </a>
                                 </li>
                                 <li className="nav-item" role="presentation">
-                                    <a className="nav-link" href="#">
+                                    <a className="nav-link" >
                                         Contact
                                     </a>
                                 </li>
                                 <li className="nav-item" role="presentation">
-                                    <a className="nav-link" href="#">
+                                    <a className="nav-link" >
                                         About
                                     </a>
                                 </li>
@@ -95,10 +101,10 @@ function Header() {
                                     />
                                 </div>
                             </form>
-                            <a className="nav-link" href="/viewProfile">
+                            <a className="nav-link" onClick={() => navigate('/viewprofile')}>
                                 <i className='fa fa-user-circle user-circle'  style={{ fontSize: 25 }} ></i>
                             </a>
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" onClick={handleCart}>
                                 <i className='fa fa-shopping-cart shopping-cart' style={{ fontSize: 25 }} ></i>
                             </a>
                             {loggedIn ? <></> :

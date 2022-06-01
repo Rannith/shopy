@@ -76,6 +76,41 @@
       "phone": "9988776655",
       "password": "1234567890",
       "id": "iDO4wOZ"
+    },
+    {
+      "name": "Rahul",
+      "email": "rahul@gmail.com",
+      "phone": "9988776655",
+      "password": "password",
+      "id": "kq9Rq7i"
+    },
+    {
+      "name": "Rahul",
+      "email": "rahul@gmail.com",
+      "phone": "9988776655",
+      "password": "password",
+      "id": "ozKE8xt"
+    },
+    {
+      "name": "Rahul",
+      "email": "rahul@gmail.com",
+      "phone": "9988776655",
+      "password": "password",
+      "id": "osr2g0Z"
+    },
+    {
+      "name": "Rahul",
+      "email": "rahul@gmail.com",
+      "phone": "9988776655",
+      "password": "password",
+      "id": "aHdFvIJ"
+    },
+    {
+      "name": "Rahul",
+      "email": "rahul@gmail.com",
+      "phone": "9988776655",
+      "password": "password",
+      "id": "dTBY8sp"
     }
   ],
   "admin": [
@@ -94,6 +129,7 @@
       "image": "https://m.media-amazon.com/images/I/71bHtyyJxNL._UX569_.jpg",
       "oldprice": "6479.00",
       "newprice": "5999.00",
+      "quantity": "1",
       "id": "NvRsklh"
     },
     {
@@ -102,6 +138,7 @@
       "image": "https://m.media-amazon.com/images/I/71xQq6cAhGL._UY550_.jpg",
       "oldprice": "8000.00",
       "newprice": "7,299.00",
+      "quantity": "1",
       "id": "MvrFlLe"
     },
     {
@@ -110,6 +147,7 @@
       "image": "\thttps://m.media-amazon.com/images/I/71+YspqUrDL._UX695_.jpg",
       "oldprice": "4789.00",
       "newprice": "3,395.00",
+      "quantity": "1",
       "id": "OTdFCmV"
     },
     {
@@ -118,6 +156,7 @@
       "image": "https://m.media-amazon.com/images/I/61hh8wS16wL._UX569_.jpg",
       "oldprice": "660.00",
       "newprice": "425.00",
+      "quantity": "1",
       "id": "jVESz9o"
     },
     {
@@ -126,7 +165,18 @@
       "image": "https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg",
       "oldprice": "2000.00",
       "newprice": "1800.00",
+      "quantity": "1",
       "id": "Q2NeNAC"
+    },
+    {
+      "productname": "Fossil Gen 6 Smartwatch",
+      "category": "watch",
+      "image": "https://m.media-amazon.com/images/I/51oWvyUWJSL._UX522_.jpg",
+      "oldprice": "28,995.00",
+      "newprice": "25,995.00",
+      "quantity": 1,
+      "id": "iIVwlAL"
     }
-  ]
+  ],
+  "cart": []
 }

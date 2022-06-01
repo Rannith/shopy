@@ -4,6 +4,10 @@
   box-sizing: border-box; 
 }
 
+body a {
+    cursor: pointer;
+}
+
 .container {
     display: block;
     width: 100%;

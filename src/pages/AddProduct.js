@@ -10,7 +10,8 @@ function AddProduct() {
         category: "",
         image: "",
         oldprice: "",
-        newprice: ""
+        newprice: "",
+        quantity: 1
     })
 
     const { productname, category, image, oldprice, newprice } = state;

@@ -6,6 +6,9 @@ const initialState = {
     products: [],
     product: {},
     loading: true,
+    cart: [],
+    value: [],
+    quantity: 0
 };
 
 const userReducers = (state = initialState, action) => {
@@ -44,6 +47,33 @@ const userReducers = (state = initialState, action) => {
                 product: action.payload,
                 loading: false,
             };
+        case types.ADD_TO_CART:
+            const val = [...state.value,action.payload]
+            return {
+                ...state,
+                value: val
+            }
+        case types.REMOVE_FROM_CART:
+            const newBasket = [...state.value];
+            const index = state.value.findIndex((item) => item.id === action.payload)
+            newBasket.splice(index,1)
+            return {
+                ...state,
+                value: newBasket
+            }
+        case types.UPDATE_QTY:
+            return {
+                ...state,
+                value: state.value.map(element => {
+                    if(element.id === action.payload.id) {
+                        return {
+                            ...element,
+                            quantity: action.payload.quantity
+                        }
+                    }
+                    return element
+                })
+            }
         case types.GET_USER_PROFILE:
             return {
                 ...state,

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react';
-import { getSingleProduct } from '../redux/action';
+import { addProductToCart, getSingleProduct, addQuantity } from '../redux/action';
 import '../assets/css/ViewProduct.css'
 
 
@@ -32,6 +32,21 @@ function ViewProduct() {
             setState({ ...product })
         }
     }, [product])
+
+    const { value } = useSelector(state => state.data)
+
+    const handleCart = () => {
+        const existingItem = value.find(item => item.id === product.id)
+        console.log("existing item", existingItem)
+
+        if (existingItem) {
+            const id = existingItem.id
+            dispatch(addQuantity(id, existingItem))
+        }
+        else {
+            dispatch(addProductToCart(product))
+        }
+    }
 
     return (
         <>
@@ -73,7 +88,7 @@ function ViewProduct() {
                                         <button className="btn btn-primary" onClick={() => navigate(-1)} >Go Back</button>
                                     </div>
                                     <div className="col text-right align-self-center">
-                                        <button className="btn btn-success">Add to cart</button>
+                                        <button className="btn btn-success" onClick={handleCart} >Add to cart</button>
                                     </div>
                                 </div>
                             </div>

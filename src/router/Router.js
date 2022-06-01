@@ -14,6 +14,7 @@ import AddProduct from '../pages/AddProduct';
 import EditProduct from '../pages/EditProduct';
 import Products from '../pages/Products';
 import ViewProduct from '../pages/ViewProduct';
+import Cart from '../pages/Cart'
 
 
 function Router() {
@@ -87,13 +88,14 @@ function Router() {
                 <Route path='register' element={<Register />} />
                 <Route path='login' element={<Login />} />
                 <Route path='editProfile/:id' element={<EditUser />} />
-                <Route path='viewProfile' element={<ViewProfile />} />
+                <Route path='viewprofile' element={<ViewProfile />} />
                 <Route path='admin' element={<Admin />} />
                 <Route path='adminPanel' element={<AdminPanel />} />
                 <Route path='addproduct' element={<AddProduct />} />
                 <Route path='editproduct/:id' element={<EditProduct />} />
                 <Route path='products' element={<Products />} />
                 <Route path='viewproduct/:id' element={<ViewProduct />} />
+                <Route path='cart' element={<Cart />} />
             </Routes>
         </>
     )

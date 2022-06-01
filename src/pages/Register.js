@@ -141,7 +141,7 @@ function Register() {
             dispatch(addUser(userData))
             // dispatch(signUp(userData));
 
-            // navigate('/login');
+            navigate('/login');
             
         }
 
