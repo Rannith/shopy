@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from './actionType';
+import * as API from '../Api/api'
 
 const getUsers = users => ({
   type: types.GET_USERS,
@@ -50,6 +51,26 @@ const getSingleUserProfile = (user) => ({
   payload: user,
 })
 
+const getTshits = (products) => ({
+  type: types.GET_TSHIRTS,
+  payload: products,
+})
+
+const getSuits = (products) => ({
+  type: types.GET_SUITS,
+  payload: products,
+})
+
+const getWatches = (products) => ({
+  type: types.GET_WATCHES,
+  payload: products,
+})
+
+const getShoes = (products) => ({
+  type: types.GET_SHOES,
+  payload: products,
+})
+
 export const loadUsers = () => {
   return function (dispatch) {
     axios
@@ -67,7 +88,7 @@ export const loadUsers = () => {
 export const loadProducts = () => {
   return function (dispatch) {
     axios
-      .get("http://localhost:5000/products")
+      .get(API.API_PRODUCTS)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(getProducts(resp.data));
@@ -75,6 +96,50 @@ export const loadProducts = () => {
       .catch((error) => console.log(error));
   };
 };
+
+export const loadTshirts = () => {
+  return function (dispatch) {
+    axios
+      .get(`${API.API_PRODUCTS}?category=tshirt`)
+      .then((res) => {
+        dispatch(getTshits(res.data))
+      })
+      .catch((error) => console.log(error))
+  }
+}
+
+export const loadSuits = () => {
+  return function (dispatch) {
+    axios
+      .get(`${API.API_PRODUCTS}?category=suit`)
+      .then((res) => {
+        dispatch(getSuits(res.data))
+      })
+      .catch((error) => console.log(error))
+  }
+}
+
+export const loadWatches = () => {
+  return function (dispatch) {
+    axios
+      .get(`${API.API_PRODUCTS}?category=watch`)
+      .then((res) => {
+        dispatch(getWatches(res.data))
+      })
+      .catch((error) => console.log(error))
+  }
+}
+
+export const loadShoes = () => {
+  return function (dispatch) {
+    axios
+      .get(`${API.API_PRODUCTS}?category=shoe`)
+      .then((res) => {
+        dispatch(getShoes(res.data))
+      })
+      .catch((error) => console.log(error))
+  }
+}
 
 export const deleteUser = (id) => {
   return function (dispatch) {
@@ -94,7 +159,7 @@ export const deleteUser = (id) => {
 export const deleteProduct = (id) => {
   return function (dispatch) {
     axios
-      .delete(`http://localhost:5000/products/${id}`)
+      .delete(`${API.API_PRODUCTS}/${id}`)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(productDeleted());
@@ -122,7 +187,7 @@ export const addUser = (user) => {
 export const addProduct = (product) => {
   return function (dispatch) {
     axios
-      .post("http://localhost:5000/products", product)
+      .post(API.API_PRODUCTS, product)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(productAdded());
@@ -150,7 +215,7 @@ export const getSingleUser = (id) => {
 export const getSingleProduct = (id) => {
   return function (dispatch) {
     axios
-      .get(`http://localhost:5000/products/${id}`)
+      .get(`${API.API_PRODUCTS}/${id}`)
       .then((resp) => {
         console.log("resp", resp.data);
         dispatch(getProduct(resp.data));
@@ -178,7 +243,7 @@ export const updateUser = (user, id) => {
 export const updateProduct = (product, id) => {
   return function (dispatch) {
     axios
-      .put(`http://localhost:5000/products/${id}`, product)
+      .put(`${API.API_PRODUCTS}/${id}`, product)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(productUpdated());

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../assets/css/CategoryCard.css'
 import tShirt from '../assets/images/t-shirt.png'
+import { Link } from 'react-router-dom'
 
 export class CategoryCard extends Component {
     render() {
@@ -25,7 +26,7 @@ export class CategoryCard extends Component {
                                         <div className="card-body">
                                             <small className="card-meta mb-2">Premium Brands Only</small>
                                             <h1 className="card-title mt-0 ">
-                                                <a className="text-white" herf="#">
+                                                <a className="text-white">
                                                     T-Shirts
                                                 </a>
                                             </h1>
@@ -33,9 +34,9 @@ export class CategoryCard extends Component {
                                                 Fit as Body
                                             </small>
                                         </div>
-                                        <button className="btn btn-light btn-lg action-button mb-5" type="button">
+                                        <Link to="/products" state={{ category: "tshirt" }} ><button className="btn btn-light btn-lg action-button mb-5" type="button">
                                             Shop Now
-                                        </button>
+                                        </button></Link>
                                         <div className="card-footer">
                                             <div className="media">
                                                 <img
@@ -78,9 +79,9 @@ export class CategoryCard extends Component {
                                                 Only Premium Products
                                             </small>
                                         </div>
-                                        <button className="btn btn-light btn-lg action-button mb-5" type="button">
+                                        <Link to="/products" state={{ category: "suit" }} ><button className="btn btn-light btn-lg action-button mb-5" type="button">
                                             Shop Now
-                                        </button>
+                                        </button></Link>
                                         <div className="card-footer">
                                             <div className="media">
                                                 <img
@@ -100,6 +101,7 @@ export class CategoryCard extends Component {
                             </div>
                         </div>
                         <div className='row'>
+
                             <div className="col-md-6">
                                 <div
                                     className="card text-white card-has-bg click-col"
@@ -125,9 +127,9 @@ export class CategoryCard extends Component {
                                                 Time with Perfection
                                             </small>
                                         </div>
-                                        <button className="btn btn-light btn-lg action-button mb-5" type="button">
+                                        <Link to="/products" state={{ category: "watch" }} ><button className="btn btn-light btn-lg action-button mb-5" type="button">
                                             Shop Now
-                                        </button>
+                                        </button></Link>
                                         <div className="card-footer">
                                             <div className="media">
                                                 <img
@@ -170,9 +172,9 @@ export class CategoryCard extends Component {
                                                 Keep one step ahead in effortless style
                                             </small>
                                         </div>
-                                        <button className="btn btn-light btn-lg action-button mb-5" type="button">
+                                        <Link to="/products" state={{ category: "shoe" }} ><button className="btn btn-light btn-lg action-button mb-5" type="button">
                                             Shop Now
-                                        </button>
+                                        </button></Link>
                                         <div className="card-footer">
                                             <div className="media">
                                                 <img
@@ -192,7 +194,7 @@ export class CategoryCard extends Component {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section >
             </>
         )
     }

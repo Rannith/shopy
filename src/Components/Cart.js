@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addQuantity, removeProductFromCart, subQuantity } from '../redux/action'
+import { addQuantity, removeProductFromCart, subQuantity } from '../Action/action'
 import '../assets/css/Cart.css'
 import { Link } from 'react-router-dom'
 

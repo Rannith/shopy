@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addProduct } from '../redux/action';
+import { addProduct } from '../Action/action';
 
 function AddProduct() {
 
@@ -37,7 +37,7 @@ function AddProduct() {
             }
         });
 
-        if(flag === 5) {
+        if (flag === 5) {
             return true
         }
         else {
@@ -53,7 +53,9 @@ function AddProduct() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(validate()) {
+        console.log("state :", state)
+
+        if (validate()) {
             dispatch(addProduct(state))
             navigate('/adminpanel')
         }

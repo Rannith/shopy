@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react';
-import { addProductToCart, getSingleProduct, addQuantity } from '../redux/action';
+import { addProductToCart, getSingleProduct, addQuantity } from '../Action/action';
 import '../assets/css/ViewProduct.css'
 
 
