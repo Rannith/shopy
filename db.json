@@ -113,11 +113,19 @@
       "id": "dTBY8sp"
     },
     {
+<<<<<<< HEAD
       "name": "Swethambari",
       "email": "swethambarikv@gmail.com",
       "phone": "9944313376",
       "password": "Swethambari",
       "id": "PV2mtXB"
+=======
+      "name": "Chittuasuran",
+      "email": "chittu999@gmail.com",
+      "phone": "9999888877",
+      "password": "password",
+      "id": "IP1IR0W"
+>>>>>>> 862ab2a3cd108fcfebe8b4e0917b3c3b12b955f3
     }
   ],
   "admin": [
@@ -135,7 +143,7 @@
       "category": "suit",
       "image": "https://m.media-amazon.com/images/I/71bHtyyJxNL._UX569_.jpg",
       "oldprice": "6479.00",
-      "newprice": "5999.00",
+      "newprice": "2.00",
       "quantity": "1",
       "id": "NvRsklh"
     },
@@ -167,15 +175,6 @@
       "id": "jVESz9o"
     },
     {
-      "productname": "U.S. POLO ASSN. Men T-Shirt",
-      "category": "tshirt",
-      "image": "https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg",
-      "oldprice": "2000.00",
-      "newprice": "1800.00",
-      "quantity": "1",
-      "id": "Q2NeNAC"
-    },
-    {
       "productname": "Fossil Gen 6 Smartwatch",
       "category": "watch",
       "image": "https://m.media-amazon.com/images/I/51oWvyUWJSL._UX522_.jpg",
@@ -183,6 +182,33 @@
       "newprice": "25,995.00",
       "quantity": 1,
       "id": "iIVwlAL"
+    },
+    {
+      "productname": "U.S. POLO ASSN. Men T-Shirt",
+      "category": "tshirt",
+      "image": "https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg",
+      "oldprice": "2,000.00",
+      "newprice": "1,800.00",
+      "quantity": 1,
+      "id": "E46KLgk"
+    },
+    {
+      "productname": "blackberrys Brown Coloured Men Suits",
+      "category": "suit",
+      "image": "https://m.media-amazon.com/images/I/517D331ZGsS._UX679_.jpg",
+      "oldprice": "12,599.00",
+      "newprice": "10,995.00",
+      "quantity": 1,
+      "id": "giCz3gl"
+    },
+    {
+      "productname": "adidas Ilation 2.0 Basketball Shoe",
+      "category": "shoe",
+      "image": "https://m.media-amazon.com/images/I/71FDxbfhRJL._UX695_.jpg",
+      "oldprice": "14,499.00",
+      "newprice": "11,432.00",
+      "quantity": 1,
+      "id": "80k9voo"
     }
   ],
   "cart": []

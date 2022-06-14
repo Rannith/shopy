@@ -3,8 +3,10 @@ import '../assets/css/Register.css'
 import login from '../assets/images/login.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { loadUsers } from '../redux/action'
+import { loadUsers } from '../Action/action'
 import CryptoJS from 'crypto-js'
+import { API_KEY } from '../Api/api'
+import ValidateLogin from '../utiles/ValidateLogin';
 // import { selectUser } from '../../../feature/UserSlice';
 
 function Login() {
@@ -25,37 +27,22 @@ function Login() {
 
     const validate = () => {
 
-        let emailError = "";
-        let passwordError = "";
+        const error = ValidateLogin(email, password)
 
-        const emailRegex = /^([a-zA-Z0-9_\.\-]+)@([a-zA-Z]+)\.([a-zA-Z]{2,5})$/;
-        const passwordRegex = /^[A-Za-z0-9]{7,15}$/;
+        let emailError = error.emailError;
+        let passwordError = error.passwordError ;
 
-        if(email === "") {
-            emailError = "Email field is required";
+        if(emailError) {
             setEmailError(emailError);
             emailField.classList.add('is-invalid')
-        }
-        else if(!emailRegex.test(email)) {
-            emailError = "Please provide a valid Email";
-            setEmailError(emailError);
-            emailField.classList.add('is-invalid');
-        }
-        else {
+        } else {
             emailField.classList.remove('is-invalid')
         }
 
-        if(password === "") {
-            passwordError = "Password field is required";
-            setPasswordError(emailError);
+        if (passwordError) {
+            setPasswordError(passwordError)
             passwordField.classList.add('is-invalid')
-        }
-        else if(!passwordRegex.test(password)) {
-            passwordError = "Please provide a valid Password";
-            setPasswordError(passwordError);
-            passwordField.classList.add('is-invalid');
-        }
-        else {
+        } else {
             passwordField.classList.remove('is-invalid')
         }
 
@@ -66,28 +53,6 @@ function Login() {
         return true
     }
 
-    // const user = useSelector(selectUser);
-
-    // const authentication = () => {
-
-    //     const button = document.getElementById('login-button');
-
-    //     if(!(email === user.email && password === user.password)) {
-    //         console.log('autherntication failed')
-            // emailField.classList.add('is-invalid')
-            // passwordField.classList.add('is-invalid')
-            // button.classList.add('is-invalid')
-
-    //         return false
-    //     }
-    //     else{
-            // passwordField.classList.remove('is-invalid')
-            // emailField.classList.remove('is-invalid')
-            // button.classList.remove('is-invalid')
-    //     }
-
-    //     return true
-    // }
     const navigate = useNavigate();
 
     let dispatch = useDispatch();
@@ -104,19 +69,11 @@ function Login() {
             password: password,
             currentTime: currentTime
         }
-        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), "qwertyuiop").toString();
+        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), API_KEY).toString();
 
         return ciphertext
 
     }
-
-    // const decryptToken = (encryptData) => {
-
-    //     var bytes = CryptoJS.AES.decrypt(encryptData, "qwertyuiop"); 
-    //     var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)); 
-
-    //     console.log("Original data :", decryptedData);
-    // }
 
     const authentication = () => {
         console.log("user", users)
@@ -145,14 +102,6 @@ function Login() {
         }
     }
 
-    // const { user, error } = useSelector((state) => state.auth);
-
-    // useEffect(() => {
-    //     if(user) {
-    //         navigate('/');
-    //     }
-    // }, [user])
-
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -160,7 +109,6 @@ function Login() {
 
         const isValid = validate();
         const auth = authentication();
-        // dispatch(loginInitiate(email, password));
 
         if(isValid && auth ) {   //old code: if(isValid && auth)
             

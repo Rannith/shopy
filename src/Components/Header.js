@@ -4,7 +4,7 @@ import brand from '../assets/images/brand.PNG'
 import brandRbg from '../assets/images/brand-rbg.png'
 import model from '../assets/images/model_1.png'
 import { useNavigate } from 'react-router-dom'
-import { loadUsers } from '../redux/action'
+import { loadUsers } from '../Action/action'
 import { useDispatch, useSelector } from 'react-redux'
 import CryptoJS from 'crypto-js'
 
@@ -132,7 +132,7 @@ function Header() {
                                 <h2>Get up to <strong>60% Off</strong> for<br />
                                     New Arrivals</h2>{" "}
                             </div>
-                            <button className="btn btn-light btn-lg action-button" onClick={() => navigate('/products')} type="button">
+                            <button className="btn btn-light btn-lg action-button" onClick={() => navigate('/products', {state: "all"} )} type="button">
                                 Get Started
                             </button>
                         </div>

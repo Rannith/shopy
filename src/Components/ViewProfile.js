@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CryptoJS from 'crypto-js';
-import { loadUsers } from '../redux/action';
+import { loadUsers } from '../Action/action';
 import '../assets/css/ViewProfile.css';
 import { Link, useNavigate } from 'react-router-dom'
+import { API_KEY } from '../Api/api'
 
 function ViewProfile() {
 
@@ -22,7 +23,7 @@ function ViewProfile() {
 
         var encryptData = localStorage.getItem("token");
 
-        var bytes = CryptoJS.AES.decrypt(encryptData, "qwertyuiop");
+        var bytes = CryptoJS.AES.decrypt(encryptData, API_KEY);
         var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
         return decryptedData;

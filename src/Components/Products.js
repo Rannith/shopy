@@ -1,43 +1,111 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductToCart, loadProducts, addQuantity } from '../redux/action'
+import { addProductToCart, loadProducts, addQuantity, loadTshirts, loadShoes, loadWatches, loadSuits } from '../Action/action'
 import '../assets/css/Products.css'
 import Header from './Header'
-import { useNavigate } from 'react-router-dom'
-import * as types from '../redux/actionType'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Footer from './Footer'
 
-function Products() {
+const Products = React.memo(() => {
 
     let dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const { category } = location.state
 
     useEffect(() => {
         dispatch(loadProducts());
     }, [])
 
+    // if (category === "") {
+    //     dispatch(loadProducts());
+    // } else if (category === "tshirt") {
+    //     dispatch(loadTshirts());
+    // } else if (category === "suit") {
+    //     dispatch(loadSuits());
+    // } else if (category === "watch") {
+    //     dispatch(loadWatches());
+    // } else if (category === "shoe") {
+    //     dispatch(loadShoes());
+    // }
+
+
+    // useEffect(() => {
+    //     if (category === "tshirt") {
+    //         findActive()
+    //         document.getElementById('tshirt').classList.add("active")
+    //         dispatch(loadTshirts());
+    //     } else if (category === "all") {
+    //         findActive()
+    //         document.getElementById('all').classList.add("active")
+    //         dispatch(loadProducts());
+    //     } else if (category === "suit") {
+    //         findActive()
+    //         document.getElementById('suit').classList.add("active")
+    //         dispatch(loadSuits());
+    //     } else if (category === "watch") {
+    //         findActive()
+    //         document.getElementById('watch').classList.add("active")
+    //         dispatch(loadWatches());
+    //     } else if (category === "shoe") {
+    //         findActive()
+    //         document.getElementById('shoe').classList.add("active")
+    //         dispatch(loadShoes());
+    //     }
+    // })
+
     const { products } = useSelector(state => state.data);
     const { value } = useSelector(state => state.data)
 
-    console.log("CART : ",value)
+    const findActive = () => {
+        const link = document.querySelectorAll('.nav-link-product')
+
+        console.log(link)
+
+        link.forEach(element => {
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+            }
+        });
+    }
+
+    const handleClick = (productCategory) => {
+
+
+        if (productCategory === "tshirt") {
+            findActive()
+            document.getElementById('tshirt').classList.add("active")
+            dispatch(loadTshirts());
+        } else if (productCategory === "all") {
+            findActive()
+            document.getElementById('all').classList.add("active")
+            dispatch(loadProducts());
+        } else if (productCategory === "suit") {
+            findActive()
+            document.getElementById('suit').classList.add("active")
+            dispatch(loadSuits());
+        } else if (productCategory === "watch") {
+            findActive()
+            document.getElementById('watch').classList.add("active")
+            dispatch(loadWatches());
+        } else if (productCategory === "shoe") {
+            findActive()
+            document.getElementById('shoe').classList.add("active")
+            dispatch(loadShoes());
+        }
+    }
 
     const addToCart = (product) => {
-        console.log("Product in Product:",product) 
+        console.log("Product in Product:", product)
 
         const existingItem = value.find(item => item.id === product.id)
-        console.log("existing item",existingItem)
-        
-        if(existingItem) {
+        console.log("existing item", existingItem)
+
+        if (existingItem) {
             const id = existingItem.id
-            console.log("IIDD : ",id)
+            console.log("IIDD : ", id)
             dispatch(addQuantity(id, existingItem))
-            // dispatch({
-            //     type: types.UPDATE_QTY,
-            //     payload: {
-            //         id,
-            //         quantity: parseInt(existingItem.quantity) + 1
-            //     }
-            // })
         }
         else {
             dispatch(addProductToCart(product))
@@ -66,19 +134,19 @@ function Products() {
                         </button>
                         <div className="collapse navbar-collapse" id="myNav">
                             <div className="navbar-nav ms-auto">
-                                <a className="nav-link active" aria-current="page" href="#">
+                                <a className="nav-link-product active" id="all" aria-current="page" onClick={() => handleClick("all")}>
                                     All
                                 </a>
-                                <a className="nav-link" href="#">
+                                <a className="nav-link-product" id="tshirt" onClick={() => handleClick("tshirt")}>
                                     T-Shirts
                                 </a>
-                                <a className="nav-link" href="#">
+                                <a className="nav-link-product" id="suit" onClick={() => handleClick("suit")}>
                                     Suits
                                 </a>
-                                <a className="nav-link" href="#">
+                                <a className="nav-link-product" id="watch" onClick={() => handleClick("watch")}>
                                     Watches
                                 </a>
-                                <a className="nav-link" href="#">
+                                <a className="nav-link-product" id="shoe" onClick={() => handleClick("shoe")}>
                                     Shoes
                                 </a>
                             </div>
@@ -121,6 +189,6 @@ function Products() {
             <Footer />
         </>
     )
-}
+})
 
 export default Products

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSingleProduct, updateProduct } from '../redux/action';
+import { getSingleProduct, updateProduct } from '../Action/action';
 
 function EditProduct() {
 

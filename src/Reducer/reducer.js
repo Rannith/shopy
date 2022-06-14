@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from '../Action/actionType'
 
 const initialState = {
     users: [],
@@ -6,7 +6,6 @@ const initialState = {
     products: [],
     product: {},
     loading: true,
-    cart: [],
     value: [],
     quantity: 0
 };
@@ -25,6 +24,15 @@ const userReducers = (state = initialState, action) => {
                 products: action.payload,
                 loading: false,
             };
+        case types.GET_TSHIRTS:
+        case types.GET_SUITS:
+        case types.GET_WATCHES:
+        case types.GET_SHOES:
+            return {
+                ...state,
+                products: action.payload,
+                loading: false
+            }
         case types.DELETE_USER:
         case types.DELETE_PRODUCT:
         case types.ADD_USER:

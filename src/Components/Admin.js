@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import { API_KEY } from '../Api/api'
+import * as API from '../Api/api'
+import ValidateLogin from '../utiles/ValidateLogin';
 
 function Admin() {
 
@@ -28,41 +31,26 @@ function Admin() {
 
     const validate = () => {
 
-        let emailError = "";
-        let passwordError = "";
+        const error = ValidateLogin(email, password)
 
-        const emailRegex = /^([a-zA-Z0-9_\.\-]+)@([a-zA-Z]+)\.([a-zA-Z]{2,5})$/;
-        const passwordRegex = /^[A-Za-z0-9]{7,15}$/;
+        let emailError = error.emailError;
+        let passwordError = error.passwordError ;
 
-        if (email === "") {
-            emailError = "Email field is required";
+        if(emailError) {
             setEmailError(emailError);
             emailField.classList.add('is-invalid')
-        }
-        else if (!emailRegex.test(email)) {
-            emailError = "Please provide a valid Email";
-            setEmailError(emailError);
-            emailField.classList.add('is-invalid');
-        }
-        else {
+        } else {
             emailField.classList.remove('is-invalid')
         }
 
-        if (password === "") {
-            passwordError = "Password field is required";
-            setPasswordError(emailError);
+        if (passwordError) {
+            setPasswordError(passwordError)
             passwordField.classList.add('is-invalid')
-        }
-        else if (!passwordRegex.test(password)) {
-            passwordError = "Please provide a valid Password";
-            setPasswordError(passwordError);
-            passwordField.classList.add('is-invalid');
-        }
-        else {
+        } else {
             passwordField.classList.remove('is-invalid')
         }
 
-        if (emailError || passwordError) {
+        if(emailError || passwordError) {
             return false;
         }
 
@@ -97,7 +85,7 @@ function Admin() {
     }, [])
 
     const getAdmin = () => {
-        axios.get("http://localhost:5000/admin").then((res) => {
+        axios.get(API.API_ADMIN).then((res) => {
             const allUser = res.data;
             setUser(allUser)
         })
@@ -109,7 +97,7 @@ function Admin() {
             email: email,
             password: password
         }
-        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), "qwertyuiop").toString();
+        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), API_KEY).toString();
 
         return ciphertext
 

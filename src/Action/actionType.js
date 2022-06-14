@@ -12,3 +12,7 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const UPDATE_QTY = "UPDATE_QTY";
+export const GET_TSHIRTS = "GET_TSHIRTS";
+export const GET_SUITS = "GET_SUITS";
+export const GET_WATCHES = "GET_WATCHES";
+export const GET_SHOES = "GET_SHOES"

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { deleteProduct, loadProducts } from '../redux/action';
+import { deleteProduct, loadProducts } from '../Action/action';
 import '../assets/css/AdminPanel.css'
 
 function AdminPanel() {
@@ -46,7 +46,7 @@ function AdminPanel() {
                         {
                             products.map((product) => {
                                 return (
-                                    <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product">
+                                    <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product.id}>
                                         <div className="bg-white rounded shadow-sm">
                                             <img
                                                 src={product.image}
