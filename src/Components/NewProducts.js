@@ -1,8 +1,57 @@
 import React, { Component } from 'react'
 import '../assets/css/NewProducts.css'
+import { addProductToCart, loadNewProducts, loadPopularProducts, addQuantity } from '../Action/action'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 export class NewProducts extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            size: "contain"
+        }
+    }
+
+    componentDidMount() {
+
+        this.props.loadPopularProducts();
+        this.props.loadNewProducts()
+    }
+
     render() {
+
+
+        const newProduct = this.props.products.newproducts;
+        const popularProduct = this.props.products.popularproducts;
+        let size = "contain";
+
+        console.log("New product : ", newProduct);
+        console.log("Popular Product : ", popularProduct);
+
+        newProduct.slice(0, 4).map((item) => {
+            console.log("item : ", item)
+        })
+
+        const handleCart = (product) => {
+            console.log("in handle cart")
+
+            const value = this.props.value.value;
+
+            console.log(value)
+
+            const existingItem = value.find(item => item.id === product.id)
+            console.log("existing item", existingItem)
+
+            if (existingItem) {
+                const id = existingItem.id
+                this.props.addQuantity(id, existingItem)
+            }
+            else {
+                this.props.addProductToCart(product);
+            }
+        }
+
         return (
             <div>
                 <section className="section-products">
@@ -15,152 +64,78 @@ export class NewProducts extends Component {
                                 </div>
                             </div>
                         </div>
+                        {/* Popular Product */}
                         <div className="row">
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-1" className="single-product">
-                                    <div className="part-1">
-                                        <span className="discount">10% off</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">U.S. POLO ASSN. Men T-Shirt</h3>
-                                        <h4 className="product-old-price">₹2,000.00</h4>
-                                        <h4 className="product-price">₹1,800.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-2" className="single-product">
-                                    <div className="part-1">
-                                        <span className="discount">15% off</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">Raymond Men's Wool Notch Lapel Suit</h3>
-                                        <h4 className="product-old-price">₹6,479.00</h4>
-                                        <h4 className="product-price">₹5,507.15</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-3" className="single-product">
-                                    <div className="part-1">
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">Titan Neo Iv Analog Black Dial Watch</h3>
-                                        <h4 className="product-price">₹7,255.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-4" className="single-product">
-                                    <div className="part-1">
-                                        <span className="new">new</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">Woodland Leather Sneaker</h3>
-                                        <h4 className="product-price">₹3,395.00</h4>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                popularProduct.slice(0, 4).map((product) => {
+                                    return (
+                                        <div className="col-md-6 col-lg-4 col-xl-3" key={product.id}>
+                                            <div id="product" className="single-product">
+                                                {
+                                                    product.category === "shoe" ?
+                                                        size = "60%" : size = "contain"
+                                                }
+                                                <div className="part-1" style={{
+                                                    backgroundImage: `url("${product.image}")`,
+                                                    backgroundSize: `${size}`,
+                                                    backgroundRepeat: 'no-repeat',
+                                                    // backgroundPosition: 'center'
+                                                }}>
+                                                    <ul>
+                                                        <li><a onClick={() => handleCart(product)}><i className="fas fa-shopping-cart"></i></a></li>
+                                                        <Link to={`/viewproduct/${product.id}`} ><li><a href="#"><i className="fas fa-expand"></i></a></li></Link>
+                                                    </ul>
+                                                </div>
+                                                <div className="part-2">
+                                                    <h3 className="product-title">{product.productname}</h3>
+                                                    <h4 className="product-old-price">₹{product.oldprice}</h4>
+                                                    <h4 className="product-price">₹{product.newprice}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            {/* New Product */}
                             <div className="row justify-content-center text-center">
                                 <div className="col-md-8 col-lg-6">
                                     <div className="header">
-                                        <h3>something New has been arived <strong>Grab Soon!!</strong></h3>
+                                        <h3>something New has been arrived <strong>Grab Soon!!</strong></h3>
                                         <h1>New Arrivals</h1>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-5" className="single-product">
-                                    <div className="part-1">
-                                        <span className="new">new</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">BLIVE Henley Neck Full Sleeve Cotton Blend T Shirts</h3>
-                                        <h4 className="product-old-price">₹660.00</h4>
-                                        <h4 className="product-price">₹425.00</h4>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                newProduct.slice(0, 4).map((product) => {
+                                    return (
+                                        <div className="col-md-6 col-lg-4 col-xl-3" key={product.id}>
+                                            <div id="product" className="single-product">
+                                                {
+                                                    product.category === "shoe" ?
+                                                        size = "60%" : size = "contain"
+                                                }
+                                                <div className="part-1" style={{
+                                                    backgroundImage: `url("${product.image}")`,
+                                                    backgroundSize: `${size}`,
+                                                    backgroundRepeat: 'no-repeat',
+                                                    // backgroundPosition: 'center'
 
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-6" className="single-product">
-                                    <div className="part-1">
-                                        <span className="new">new</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">blackberrys Brown Coloured Men Suits</h3>
-                                        <h4 className="product-price">₹10,995.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-7" className="single-product">
-                                    <div className="part-1">
-                                        <span className="new">new</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">Fossil Gen 6 Smartwatch</h3>
-                                        <h4 className="product-old-price">₹28,995.00</h4>
-                                        <h4 className="product-price">₹25,995.00</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6 col-lg-4 col-xl-3">
-                                <div id="product-8" className="single-product">
-                                    <div className="part-1">
-                                        <span className="new">new</span>
-                                        <ul>
-                                            <li><a href="#"><i className="fas fa-shopping-cart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-heart"></i></a></li>
-                                            <li><a href="#"><i className="fas fa-expand"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="part-2">
-                                        <h3 className="product-title">adidas Ilation 2.0 Basketball Shoe</h3>
-                                        <h4 className="product-price">₹11,432.00</h4>
-                                    </div>
-                                </div>
-                            </div>
+                                                }}>
+                                                    <ul>
+                                                        <li><a onClick={() => handleCart(product)} ><i className="fas fa-shopping-cart"></i></a></li>
+                                                        <Link to={`/viewproduct/${product.id}`} ><li><a href="#"><i className="fas fa-expand"></i></a></li></Link>
+                                                    </ul>
+                                                </div>
+                                                <div className="part-2">
+                                                    <h3 className="product-title">{product.productname}</h3>
+                                                    <h4 className="product-old-price">₹{product.oldprice}</h4>
+                                                    <h4 className="product-price">₹{product.newprice}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </section>
@@ -169,4 +144,20 @@ export class NewProducts extends Component {
     }
 }
 
-export default NewProducts
+const mapStateToProps = state => {
+    return {
+        products: state.data,
+        value: state.data
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadNewProducts: () => dispatch(loadNewProducts()),
+        loadPopularProducts: () => dispatch(loadPopularProducts()),
+        addQuantity: (id, product) => dispatch(addQuantity(id, product)),
+        addProductToCart: (product) => dispatch(addProductToCart(product))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewProducts)

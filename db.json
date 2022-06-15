@@ -118,6 +118,13 @@
       "phone": "9944313376",
       "password": "Swethambari",
       "id": "PV2mtXB"
+    },
+    {
+      "name": "edwin",
+      "email": "edwin@mail.com",
+      "phone": "6383880050",
+      "password": "edwin29",
+      "id": "C2BESlf"
     }
   ],
   "admin": [
@@ -137,16 +144,8 @@
       "oldprice": "6479.00",
       "newprice": "2.00",
       "quantity": "1",
+      "producttype": "regularproduct",
       "id": "NvRsklh"
-    },
-    {
-      "productname": "Titan Neo Iv Analog Black Dial Watch",
-      "category": "watch",
-      "image": "https://m.media-amazon.com/images/I/71xQq6cAhGL._UY550_.jpg",
-      "oldprice": "8000.00",
-      "newprice": "7,299.00",
-      "quantity": "1",
-      "id": "MvrFlLe"
     },
     {
       "productname": "Woodland Leather Sneaker",
@@ -155,6 +154,7 @@
       "oldprice": "4789.00",
       "newprice": "3,395.00",
       "quantity": "1",
+      "producttype": "popularproduct",
       "id": "OTdFCmV"
     },
     {
@@ -164,6 +164,7 @@
       "oldprice": "660.00",
       "newprice": "425.00",
       "quantity": "1",
+      "producttype": "newproduct",
       "id": "jVESz9o"
     },
     {
@@ -173,6 +174,7 @@
       "oldprice": "28,995.00",
       "newprice": "25,995.00",
       "quantity": 1,
+      "producttype": "popularproduct",
       "id": "iIVwlAL"
     },
     {
@@ -180,8 +182,9 @@
       "category": "tshirt",
       "image": "https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg",
       "oldprice": "2,000.00",
-      "newprice": "1,800.00",
+      "newprice": "1,900.00",
       "quantity": 1,
+      "producttype": "regularproduct",
       "id": "E46KLgk"
     },
     {
@@ -191,6 +194,7 @@
       "oldprice": "12,599.00",
       "newprice": "10,995.00",
       "quantity": 1,
+      "producttype": "popularproduct",
       "id": "giCz3gl"
     },
     {
@@ -200,7 +204,48 @@
       "oldprice": "14,499.00",
       "newprice": "11,432.00",
       "quantity": 1,
+      "producttype": "newproduct",
       "id": "80k9voo"
+    },
+    {
+      "productname": "Redux Analog Linear Designer Dial",
+      "category": "watch",
+      "image": "https://m.media-amazon.com/images/I/71I+1svsgmL._UX679_.jpg",
+      "oldprice": "7,999",
+      "newprice": "5,699",
+      "quantity": 1,
+      "producttype": "popularproduct",
+      "id": "8E_yaVq"
+    },
+    {
+      "productname": "Adidas Mens Polyester Club 3str Polo",
+      "category": "tshirt",
+      "image": "https://m.media-amazon.com/images/I/715FwdYylnL._UY879_.jpg",
+      "oldprice": "1,619.00",
+      "newprice": "1,259.00",
+      "quantity": 1,
+      "producttype": "newproduct",
+      "id": "JXe7Wlu"
+    },
+    {
+      "productname": "Trulyfeb Cotton Casual Stylish Blazer",
+      "category": "suit",
+      "image": "https://m.media-amazon.com/images/I/61u1iPyqTTL._UY879_.jpg",
+      "oldprice": "1,899.00",
+      "newprice": "1,599.00",
+      "quantity": 1,
+      "producttype": "popularproduct",
+      "id": "_eyOslT"
+    },
+    {
+      "productname": "Fastrack Batman Analog Multicolor Dial ",
+      "category": "watch",
+      "image": "https://m.media-amazon.com/images/I/71yqN+ksKoL._UX679_.jpg",
+      "oldprice": "3,000.00",
+      "newprice": "2,495.00",
+      "quantity": 1,
+      "producttype": "newproduct",
+      "id": "EY6-FQm"
     }
   ],
   "cart": []

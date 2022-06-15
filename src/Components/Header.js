@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { loadUsers } from '../Action/action'
 import { useDispatch, useSelector } from 'react-redux'
 import CryptoJS from 'crypto-js'
+import NavBar from './NavBar'
 
 function Header() {
 
@@ -57,7 +58,8 @@ function Header() {
     return (
         <>
             <div className="header-shopy">
-                <nav className="navbar navbar-dark navbar-expand-md navigation-clean-search">
+                <NavBar />
+                {/* <nav className="navbar navbar-dark navbar-expand-md navigation-clean-search">
                     <div className="container">
                         <a className="navbar-brand" onClick={() => navigate('/')}>
                             <img src={brand} alt='SHOPY' width={138} height={50} />
@@ -96,7 +98,7 @@ function Header() {
                                     <input
                                         className="form-control search-field"
                                         type="search"
-                                        name="search"
+                                        name="category"
                                         id="search-field"
                                     />
                                 </div>
@@ -121,7 +123,7 @@ function Header() {
                             }
                         </div>
                     </div>
-                </nav>
+                </nav> */}
                 <div className="container hero">
                     <div className="row">
                         <div className="col-12 col-lg-6 col-xl-5 offset-xl-1">

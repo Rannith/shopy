@@ -16,3 +16,5 @@ export const GET_TSHIRTS = "GET_TSHIRTS";
 export const GET_SUITS = "GET_SUITS";
 export const GET_WATCHES = "GET_WATCHES";
 export const GET_SHOES = "GET_SHOES"
+export const GET_NEWPRODUCTS = "GET_NEWPRODUCTS";
+export const GET_POPULARPRODUCTS = "GET_POPULARPRODUCTS";

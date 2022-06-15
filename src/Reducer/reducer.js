@@ -4,6 +4,8 @@ const initialState = {
     users: [],
     user: {},
     products: [],
+    popularproducts: [],
+    newproducts: [],
     product: {},
     loading: true,
     value: [],
@@ -28,9 +30,16 @@ const userReducers = (state = initialState, action) => {
         case types.GET_SUITS:
         case types.GET_WATCHES:
         case types.GET_SHOES:
+        case types.GET_POPULARPRODUCTS:
             return {
                 ...state,
-                products: action.payload,
+                popularproducts: action.payload,
+                loading: false
+            }
+        case types.GET_NEWPRODUCTS:
+            return {
+                ...state,
+                newproducts: action.payload,
                 loading: false
             }
         case types.DELETE_USER:

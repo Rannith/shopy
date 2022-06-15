@@ -51,6 +51,16 @@ const getSingleUserProfile = (user) => ({
   payload: user,
 })
 
+const getNewProducts = (products) => ({
+  type: types.GET_NEWPRODUCTS,
+  payload: products
+})
+
+const getPopularProducts = (products) => ({
+  type: types.GET_POPULARPRODUCTS,
+  payload: products
+})
+
 const getTshits = (products) => ({
   type: types.GET_TSHIRTS,
   payload: products,
@@ -85,61 +95,95 @@ export const loadUsers = () => {
   }
 }
 
-export const loadProducts = () => {
-  return function (dispatch) {
-    axios
-      .get(API.API_PRODUCTS)
-      .then((resp) => {
-        console.log("resp", resp);
-        dispatch(getProducts(resp.data));
-      })
-      .catch((error) => console.log(error));
-  };
+export const loadProducts = (category) => {
+
+  if(category === undefined) {
+    return function (dispatch) {
+      axios
+        .get(API.API_PRODUCTS)
+        .then((resp) => {
+          console.log("resp", resp);
+          dispatch(getProducts(resp.data));
+        })
+        .catch((error) => console.log(error));
+    };
+  } else {
+    return function (dispatch) {
+      axios
+        .get(`${API.API_PRODUCTS}?category=${category}`)
+        .then((res) => {
+          dispatch(getProducts(res.data))
+        })
+        .catch((error) => console.log(error))
+    }
+  } 
 };
 
-export const loadTshirts = () => {
+export const loadNewProducts = () => {
   return function (dispatch) {
     axios
-      .get(`${API.API_PRODUCTS}?category=tshirt`)
+      .get(`${API.API_PRODUCTS}?producttype=newproduct`)
       .then((res) => {
-        dispatch(getTshits(res.data))
+        dispatch(getNewProducts(res.data))
       })
       .catch((error) => console.log(error))
   }
 }
 
-export const loadSuits = () => {
+export const loadPopularProducts = () => {
   return function (dispatch) {
     axios
-      .get(`${API.API_PRODUCTS}?category=suit`)
+      .get(`${API.API_PRODUCTS}?producttype=popularproduct`)
       .then((res) => {
-        dispatch(getSuits(res.data))
+        dispatch(getPopularProducts(res.data))
       })
       .catch((error) => console.log(error))
   }
 }
 
-export const loadWatches = () => {
-  return function (dispatch) {
-    axios
-      .get(`${API.API_PRODUCTS}?category=watch`)
-      .then((res) => {
-        dispatch(getWatches(res.data))
-      })
-      .catch((error) => console.log(error))
-  }
-}
+// export const loadTshirts = () => {
+//   return function (dispatch) {
+//     axios
+//       .get(`${API.API_PRODUCTS}?category=tshirt`)
+//       .then((res) => {
+//         dispatch(getTshits(res.data))
+//       })
+//       .catch((error) => console.log(error))
+//   }
+// }
 
-export const loadShoes = () => {
-  return function (dispatch) {
-    axios
-      .get(`${API.API_PRODUCTS}?category=shoe`)
-      .then((res) => {
-        dispatch(getShoes(res.data))
-      })
-      .catch((error) => console.log(error))
-  }
-}
+// export const loadSuits = () => {
+//   return function (dispatch) {
+//     axios
+//       .get(`${API.API_PRODUCTS}?category=suit`)
+//       .then((res) => {
+//         dispatch(getSuits(res.data))
+//       })
+//       .catch((error) => console.log(error))
+//   }
+// }
+
+// export const loadWatches = () => {
+//   return function (dispatch) {
+//     axios
+//       .get(`${API.API_PRODUCTS}?category=watch`)
+//       .then((res) => {
+//         dispatch(getWatches(res.data))
+//       })
+//       .catch((error) => console.log(error))
+//   }
+// }
+
+// export const loadShoes = () => {
+//   return function (dispatch) {
+//     axios
+//       .get(`${API.API_PRODUCTS}?category=shoe`)
+//       .then((res) => {
+//         dispatch(getShoes(res.data))
+//       })
+//       .catch((error) => console.log(error))
+//   }
+// }
 
 export const deleteUser = (id) => {
   return function (dispatch) {

@@ -5,6 +5,7 @@ import '../assets/css/Products.css'
 import Header from './Header'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Footer from './Footer'
+import NavBar from './NavBar'
 
 const Products = React.memo(() => {
 
@@ -15,7 +16,8 @@ const Products = React.memo(() => {
     const { category } = location.state
 
     useEffect(() => {
-        dispatch(loadProducts());
+        console.log("category : ", category)
+        dispatch(loadProducts(category));
     }, [])
 
     // if (category === "") {
@@ -76,23 +78,23 @@ const Products = React.memo(() => {
         if (productCategory === "tshirt") {
             findActive()
             document.getElementById('tshirt').classList.add("active")
-            dispatch(loadTshirts());
+            dispatch(loadProducts(productCategory));
         } else if (productCategory === "all") {
             findActive()
             document.getElementById('all').classList.add("active")
-            dispatch(loadProducts());
+            dispatch(loadProducts(productCategory));
         } else if (productCategory === "suit") {
             findActive()
             document.getElementById('suit').classList.add("active")
-            dispatch(loadSuits());
+            dispatch(loadProducts(productCategory));
         } else if (productCategory === "watch") {
             findActive()
             document.getElementById('watch').classList.add("active")
-            dispatch(loadWatches());
+            dispatch(loadProducts(productCategory));
         } else if (productCategory === "shoe") {
             findActive()
             document.getElementById('shoe').classList.add("active")
-            dispatch(loadShoes());
+            dispatch(loadProducts(productCategory));
         }
     }
 
@@ -114,7 +116,7 @@ const Products = React.memo(() => {
 
     return (
         <>
-            <Header />
+            <NavBar />
             <div className="container bg-white product-list">
                 <nav className="navbar navbar-expand-md navbar-light bg-white">
                     <div className="container-fluid p-0">

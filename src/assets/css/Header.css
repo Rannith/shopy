@@ -3,7 +3,15 @@
     background-color:#184e8e;
     padding-bottom:80px;
     font-family:'Source Sans Pro', sans-serif;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+  }
+
+  .nav-shopy {
+    background:linear-gradient( to  right, #142879c5, #21a9af 152%);
+    background-color:#184e8e;
+    /* padding-bottom:80px; */
+    font-family:'Source Sans Pro', sans-serif;
+    /* border-radius: 10px; */
   }
   
   @media (min-width:768px) {
@@ -12,7 +20,7 @@
     }
   }
   
-  .header-shopy .navbar {
+  .nav-shopy .navbar {
     background:transparent;
     padding-top:.75rem;
     padding-bottom:.75rem;
@@ -23,52 +31,52 @@
   }
   
   @media (min-width:768px) {
-    .header-shopy .navbar {
+    .nav-shopy .navbar {
       padding-top:1rem;
       padding-bottom:1rem;
     }
   }
   
-  .header-shopy .navbar .navbar-brand {
+  .nav-shopy .navbar .navbar-brand {
     font-weight:bold;
     color:inherit;
   }
   
-  .header-shopy .navbar .navbar-brand:hover {
+  .nav-shopy .navbar .navbar-brand:hover {
     color:#f0f0f0;
   }
   
-  .header-shopy .navbar .navbar-collapse {
+  .nav-shopy .navbar .navbar-collapse {
     border-top:1px solid rgba(255,255,255,0.3);
     margin-top:.5rem;
   }
   
   @media (min-width:768px) {
-    .header-shopy .navbar .navbar-collapse {
+    .nav-shopy .navbar .navbar-collapse {
       border-color:transparent;
       margin:0;
     }
   }
   
-  .header-shopy .navbar .navbar-collapse span .login {
+  .nav-shopy .navbar .navbar-collapse span .login {
     color:#d9d9d9;
     margin-right:.5rem;
     text-decoration:none;
   }
   
-  .header-shopy .navbar .navbar-collapse span .login:hover {
+  .nav-shopy .navbar .navbar-collapse span .login:hover {
     color:#fff;
   }
   
-  .header-shopy .navbar .navbar-toggler {
+  .nav-shopy .navbar .navbar-toggler {
     border-color:rgba(255,255,255,0.3);
   }
   
-  .header-shopy .navbar .navbar-toggler:hover, .header-shopy .navbar-toggler:focus {
+  .nav-shopy .navbar .navbar-toggler:hover, .nav-shopy .navbar-toggler:focus {
     background:none;
   }
   
-  .header-shopy .navbar .navbar-nav a.active, .header-shopy .navbar .navbar-nav > .show .dropdown-item {
+  .nav-shopy .navbar .navbar-nav a.active, .nav-shopy .navbar .navbar-nav > .show .dropdown-item {
     background:none;
     box-shadow:none;
     color: white;
@@ -100,32 +108,32 @@
   
   
   @media (min-width: 768px) {
-    .header-shopy .navbar-nav .nav-link {
+    .nav-shopy .navbar-nav .nav-link {
       padding-left:.7rem;
       padding-right:.7rem;
     }
   }
   
   @media (min-width: 992px) {
-    .header-shopy .navbar-nav .nav-link {
-      padding-left:1.2rem;
+    .nav-shopy .navbar-nav .nav-link {
+      padding-left:.7rem;
       padding-right:1.2rem;
     }
   }
   
-  .header-shopy .navbar .navbar-nav > li > .dropdown-menu {
+  .nav-shopy .navbar .navbar-nav > li > .dropdown-menu {
     margin-top:-5px;
     box-shadow:0 4px 8px rgba(0,0,0,.1);
     background-color:#fff;
     border-radius:2px;
   }
   
-  .header-shopy .navbar .dropdown-menu .dropdown-item:focus, .header-shopy .navbar .dropdown-menu .dropdown-item {
+  .nav-shopy .navbar .dropdown-menu .dropdown-item:focus, .nav-shopy .navbar .dropdown-menu .dropdown-item {
     line-height:2;
     color:#37434d;
   }
   
-  .header-shopy .navbar .dropdown-menu .dropdown-item:focus, .header-shopy .navbar .dropdown-menu .dropdown-item:hover {
+  .nav-shopy .navbar .dropdown-menu .dropdown-item:focus, .nav-shopy .navbar .dropdown-menu .dropdown-item:hover {
     background:#ebeff1;
   }
   
@@ -145,11 +153,11 @@
     color:#fff;
   }
   
-  .header-shopy .navbar .form-inline label {
+  .nav-shopy .navbar .form-inline label {
     color:#d9d9d9;
   }
   
-  .header-shopy .navbar .form-inline .search-field {
+  .nav-shopy .navbar .form-inline .search-field {
     display:inline-block;
     width:80%;
     background:none;
@@ -162,7 +170,7 @@
     transition:border-bottom-color 0.3s;
   }
   
-  .header-shopy .navbar .form-inline .search-field:focus {
+  .nav-shopy .navbar .form-inline .search-field:focus {
     border-bottom:1px solid #ccc;
   }
   

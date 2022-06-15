@@ -58,14 +58,14 @@ body {
 		transform: scale(1.2,1.2) rotate(5deg);
 }
 
-.section-products #product-1 .part-1::before {
-    background: url("https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg") no-repeat center;
+.section-products #product .part-1::before {
+    /* background: url("https://m.media-amazon.com/images/I/81-w8Sr2IWL._UX569_.jpg") no-repeat center; */
     background-size: contain;
 		transition: all 0.3s;
 }
 
 .section-products #product-2 .part-1::before {
-    background: url("https://m.media-amazon.com/images/I/71bHtyyJxNL._UX569_.jpg") no-repeat center;
+    background: url("https://m.media-amazon.com/images/I/71bHtyyJxNL._UX569_.jpg");
     background-size: contain;
 }
 

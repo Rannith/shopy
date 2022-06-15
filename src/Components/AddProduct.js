@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addProduct } from '../Action/action';
+import '../assets/css/Register.css'
 
 function AddProduct() {
 
@@ -11,10 +12,11 @@ function AddProduct() {
         image: "",
         oldprice: "",
         newprice: "",
-        quantity: 1
+        quantity: 1,
+        producttype: "",
     })
 
-    const { productname, category, image, oldprice, newprice } = state;
+    const { productname, category, image, oldprice, newprice, producttype } = state;
 
     let dispatch = useDispatch();
     let navigate = useNavigate();
@@ -37,7 +39,7 @@ function AddProduct() {
             }
         });
 
-        if (flag === 5) {
+        if (flag === 6) {
             return true
         }
         else {
@@ -82,13 +84,30 @@ function AddProduct() {
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='category'>Category<sup>*</sup></label>
-                                                <input type='text' className='form-control' id='category' name='category' placeholder='Category' value={category} onChange={handleChange} />
+                                                {/* <input type='text' className='form-control' id='category' name='category' placeholder='Category' value={category} onChange={handleChange} /> */}
+                                                <select class="form-control" aria-label="Default select example" name='category' value={category} onChange={handleChange}>
+                                                    <option value="" selected>Open this, select Category of Product</option>
+                                                    <option value="tshirt">T-Shirt</option>
+                                                    <option value="suit">Suit / Blazer</option>
+                                                    <option value="shoe">Shoe / Sandles</option>
+                                                    <option value="watch">Watch</option>
+                                                </select>
                                                 <strong className='invalid-feedback' >Enter Data</strong>
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='image'>Image URL<sup>*</sup></label>
                                                 <input type='text' className='form-control' id='image' name='image' placeholder='Image URL' value={image} onChange={handleChange} />
                                                 <strong className='invalid-feedback' >Enter Data</strong>
+                                            </div>
+                                            <div className='form-group'>
+                                                <label htmlFor='productType'>Product Type<sup>*</sup></label>
+                                                <select class="form-control" aria-label="Default select example" name='producttype' value={producttype} onChange={handleChange}>
+                                                    <option value="" selected>Open this, select Type of Product</option>
+                                                    <option value="newproduct">New Product</option>
+                                                    <option value="popularproduct">Popular Product</option>
+                                                    <option value="regularproduct">Regular Product</option>
+                                                </select>
+                                                <strong className='invalid-feedback' >Select Type</strong>
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='oldprice'>Old Price<sup>*</sup></label>
@@ -104,7 +123,7 @@ function AddProduct() {
                                         </form>
                                     </div>
                                     <div className="col-md-6 d-flex align-items-center">
-                                        <img src="" alt="Add Product" className="img-fluid" />
+                                        <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Add Product" className="img-fluid" width="500rem" />
                                     </div>
                                 </div>
                             </section>

@@ -10,6 +10,7 @@ function EditProduct() {
         productname: "",
         category: "",
         image: "",
+        producttype: "",
         oldprice: "",
         newprice: ""
     })
@@ -19,7 +20,7 @@ function EditProduct() {
     let dispatch = useDispatch();
     const navigate = useNavigate();
     const { product } = useSelector(state => state.data);
-    const { productname, category, image, oldprice, newprice } = state;
+    const { productname, category, image, oldprice, newprice, producttype } = state;
 
     useEffect(() => {
         dispatch(getSingleProduct(id))
@@ -56,7 +57,7 @@ function EditProduct() {
             }
         });
 
-        if (flag === 5) {
+        if (flag === 6) {
             return true
         }
         else {
@@ -68,7 +69,7 @@ function EditProduct() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if(validate()) {
+        if (validate()) {
             dispatch(updateProduct(state, id))
             navigate('/adminpanel')
         }
@@ -94,13 +95,30 @@ function EditProduct() {
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='category'>Category<sup>*</sup></label>
-                                                <input type='text' className='form-control' id='category' name='category' placeholder='Category' value={category} onChange={handleChange} />
+                                                {/* <input type='text' className='form-control' id='category' name='category' placeholder='Category' value={category} onChange={handleChange} /> */}
+                                                <select class="form-control" aria-label="Default select example" name='category' value={category} onChange={handleChange}>
+                                                    <option value="" selected>Open this, select Category of Product</option>
+                                                    <option value="tshirt">T-Shirt</option>
+                                                    <option value="suit">Suit / Blazer</option>
+                                                    <option value="shoe">Shoe / Sandles</option>
+                                                    <option value="watch">Watch</option>
+                                                </select>
                                                 <strong className='invalid-feedback' >Enter Data</strong>
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='image'>Image URL<sup>*</sup></label>
                                                 <input type='text' className='form-control' id='image' name='image' placeholder='Image URL' value={image} onChange={handleChange} />
                                                 <strong className='invalid-feedback' >Enter Data</strong>
+                                            </div>
+                                            <div className='form-group'>
+                                                <label htmlFor='productType'>Product Type<sup>*</sup></label>
+                                                <select class="form-control" aria-label="Default select example" name='producttype' value={producttype} onChange={handleChange}>
+                                                    <option value="" selected>Open this, select Type of Product</option>
+                                                    <option value="newproduct">New Product</option>
+                                                    <option value="popularproduct">Popular Product</option>
+                                                    <option value="regularproduct">Regular Product</option>
+                                                </select>
+                                                <strong className='invalid-feedback' >Select Type</strong>
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='oldprice'>Old Price<sup>*</sup></label>
