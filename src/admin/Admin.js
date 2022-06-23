@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
-import { API_KEY } from '../Api/api'
+import { KEY } from '../constant/index'
 import * as API from '../Api/api'
 import ValidateLogin from '../utiles/ValidateLogin';
 
@@ -97,7 +97,7 @@ function Admin() {
             email: email,
             password: password
         }
-        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), API_KEY).toString();
+        let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), KEY).toString();
 
         return ciphertext
 

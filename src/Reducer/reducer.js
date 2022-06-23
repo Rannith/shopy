@@ -26,10 +26,6 @@ const userReducers = (state = initialState, action) => {
                 products: action.payload,
                 loading: false,
             };
-        case types.GET_TSHIRTS:
-        case types.GET_SUITS:
-        case types.GET_WATCHES:
-        case types.GET_SHOES:
         case types.GET_POPULARPRODUCTS:
             return {
                 ...state,

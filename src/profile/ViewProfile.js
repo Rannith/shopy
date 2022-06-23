@@ -4,7 +4,7 @@ import CryptoJS from 'crypto-js';
 import { loadUsers } from '../Action/action';
 import '../assets/css/ViewProfile.css';
 import { Link, useNavigate } from 'react-router-dom'
-import { API_KEY } from '../Api/api'
+import { KEY } from '../constant/index'
 
 function ViewProfile() {
 
@@ -21,10 +21,10 @@ function ViewProfile() {
             return false;
         }
 
-        var encryptData = localStorage.getItem("token");
+        let encryptData = localStorage.getItem("token");
 
-        var bytes = CryptoJS.AES.decrypt(encryptData, API_KEY);
-        var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        let bytes = CryptoJS.AES.decrypt(encryptData, KEY);
+        let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
         return decryptedData;
     }

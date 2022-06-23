@@ -1,22 +1,17 @@
-import React,{ useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loadUsers } from '../Action/action';
 import CryptoJS from 'crypto-js';
 
 function ValidateSession() {
 
     const navigate = useNavigate()
-
-    console.log('Validate Session called')
-
     let dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(loadUsers())
     }, [])
-
-    const { users } = useSelector(state => state.data)
 
     const decryptToken = () => {
 
@@ -24,12 +19,12 @@ function ValidateSession() {
             return false;
         }
 
-        var encryptData = localStorage.getItem("token");
+        let encryptData = localStorage.getItem("token");
 
         console.log("encrypt data :", encryptData);
 
-        var bytes = CryptoJS.AES.decrypt(encryptData, "qwertyuiop");
-        var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        let bytes = CryptoJS.AES.decrypt(encryptData, "qwertyuiop");
+        let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
         console.log("Original data :", decryptedData);
 

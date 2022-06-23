@@ -1,11 +1,11 @@
 import React,{ useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteUser, loadUsers } from '../Action/action';
-import Header from './Header';
+import Header from '../shared/Header';
 import CategoryCard from './CategoryCard';
 import NewProducts from './NewProducts';
-import Footer from './Footer';
+import Footer from '../shared/Footer';
 
 
 function Home() {

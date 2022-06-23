@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToCart, loadProducts, addQuantity, loadTshirts, loadShoes, loadWatches, loadSuits } from '../Action/action'
 import '../assets/css/Products.css'
-import Header from './Header'
 import { useNavigate, useLocation } from 'react-router-dom'
-import Footer from './Footer'
-import NavBar from './NavBar'
+import Footer from '../shared/Footer'
+import NavBar from '../shared/NavBar'
 
 const Products = React.memo(() => {
 
@@ -14,10 +13,25 @@ const Products = React.memo(() => {
     const location = useLocation()
 
     const { category } = location.state
+    const { products } = useSelector(state => state.data);
+    const { value } = useSelector(state => state.data)
+
+    const findActive = () => {
+        const link = document.querySelectorAll('.nav-link-product')
+
+        console.log(link)
+
+        link.forEach(element => {
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+            }
+        });
+    }
 
     useEffect(() => {
         console.log("category : ", category)
         dispatch(loadProducts(category));
+        handleClick()
     }, [])
 
     // if (category === "") {
@@ -57,21 +71,6 @@ const Products = React.memo(() => {
     //     }
     // })
 
-    const { products } = useSelector(state => state.data);
-    const { value } = useSelector(state => state.data)
-
-    const findActive = () => {
-        const link = document.querySelectorAll('.nav-link-product')
-
-        console.log(link)
-
-        link.forEach(element => {
-            if (element.classList.contains('active')) {
-                element.classList.remove('active');
-            }
-        });
-    }
-
     const handleClick = (productCategory) => {
 
 
@@ -82,6 +81,7 @@ const Products = React.memo(() => {
         } else if (productCategory === "all") {
             findActive()
             document.getElementById('all').classList.add("active")
+            productCategory = undefined
             dispatch(loadProducts(productCategory));
         } else if (productCategory === "suit") {
             findActive()

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUsers } from '../Action/action'
 import CryptoJS from 'crypto-js'
-import { API_KEY } from '../Api/api'
+import { KEY } from '../constant/index'
 import ValidateLogin from '../utiles/ValidateLogin';
 // import { selectUser } from '../../../feature/UserSlice';
 
@@ -69,7 +69,7 @@ function Login() {
             password: password,
             currentTime: currentTime
         }
-        var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), API_KEY).toString();
+        let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), KEY).toString();
 
         return ciphertext
 

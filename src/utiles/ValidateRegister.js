@@ -1,3 +1,4 @@
+import * as regex from '../constant/index'
 
 function ValidateRegister(name,email,password,phone) {
 
@@ -8,10 +9,10 @@ function ValidateRegister(name,email,password,phone) {
         passwordError : ""
     }
 
-    const nameRegex = /^[a-zA-Z]{2,15}$/;
-    const emailRegex = /^([a-zA-Z0-9_\.\-]+)@([a-zA-Z]+)\.([a-zA-Z]{2,5})$/;
-    const phoneRegex = /^[6-9]{1}[0-9]{9}$/;
-    const passwordRegex = /^[A-Za-z0-9]{7,15}$/;
+    const nameRegex = regex.NAME_REGEX
+    const emailRegex = regex.EMAIL_REGEX
+    const phoneRegex = regex.PHONE_REGEX;
+    const passwordRegex = regex.PASSWORD_REGEX
 
     if (name === "") {
         error.nameError = "Enter your name";

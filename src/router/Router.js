@@ -1,17 +1,17 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import EditUser from '../Components/EditUser';
-import Home from '../Components/Home';
-import Login from '../Components/Login';
-import Register from '../Components/Register';
-import ViewProfile from '../Components/ViewProfile';
-import Admin from '../Components/Admin';
-import AdminPanel from '../Components/AdminPanel';
-import AddProduct from '../Components/AddProduct';
-import EditProduct from '../Components/EditProduct';
-import Products from '../Components/Products';
-import ViewProduct from '../Components/ViewProduct';
-import Cart from '../Components/Cart'
+import EditUser from '../profile/EditUser';
+import Home from '../home/Home';
+import Login from '../home/Login';
+import Register from '../home/Register';
+import ViewProfile from '../profile/ViewProfile';
+import Admin from '../admin/Admin';
+import AdminPanel from '../admin/AdminPanel';
+import AddProduct from '../admin/AddProduct';
+import EditProduct from '../admin/EditProduct';
+import Products from '../product/Products';
+import ViewProduct from '../product/ViewProduct';
+import Cart from '../cart/Cart'
 import ValidateSession from '../utiles/ValidateSession';
 
 
