@@ -38,7 +38,7 @@ function NavBar() {
 
                             <ul className="nav navbar-nav me-4">
                                 <li className="nav-item" role="presentation">
-                                    <a className="nav-link active" onClick={() => navigate('/')}>
+                                    <a  className="nav-link active" onClick={() => navigate('/')}>
                                         Home
                                     </a>
                                 </li>
@@ -66,10 +66,12 @@ function NavBar() {
                                         />
                                     </div>
                                 </form>
-                            <a className="nav-link"  onClick={() => navigate('/viewprofile')}>
+                                
+                            <a data-toggle="tooltip" data-placement="bottom" title="Profile" className="nav-link"  onClick={() => navigate('/viewprofile')}>
                                 <i className='fa fa-user-circle user-circle' style={{ fontSize: 25 }} ></i>
                             </a>
-                            <a className="nav-link" onClick={handleCart}>
+                            
+                            <a data-toggle="tooltip" data-placement="bottom" title="Cart" className="nav-link" onClick={handleCart}>
                                 <i className='fa fa-shopping-cart shopping-cart' style={{ fontSize: 25 }} ></i>
                             </a>
                             {loggedIn ? <></> :
@@ -87,7 +89,7 @@ function NavBar() {
                         </div>
                     </div>
                 </nav>
-            </div>
+            </div>   
         </>
     )
 }
