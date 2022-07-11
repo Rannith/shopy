@@ -17,7 +17,7 @@
     {
       "name": "Rannith",
       "email": "kmrannithvikram451@gmail.com",
-      "phone": "6369118051",
+      "phone": "9751612739",
       "password": "qwertyuiop",
       "id": "3b2gAas"
     },
@@ -157,7 +157,7 @@
     {
       "productname": "Woodland Leather Sneaker",
       "category": "shoe",
-      "image": "\thttps://m.media-amazon.com/images/I/71+YspqUrDL._UX695_.jpg",
+      "image": "https://m.media-amazon.com/images/I/71+YspqUrDL._UX695_.jpg",
       "oldprice": "4789.00",
       "newprice": "3,395.00",
       "quantity": "1",

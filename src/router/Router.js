@@ -1,23 +1,26 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import EditUser from '../profile/EditUser';
-import Home from '../home/Home';
-import Login from '../home/Login';
-import Register from '../home/Register';
-import ViewProfile from '../profile/ViewProfile';
-import Admin from '../admin/Admin';
-import AdminPanel from '../admin/AdminPanel';
-import AddProduct from '../admin/AddProduct';
-import EditProduct from '../admin/EditProduct';
-import Products from '../product/Products';
-import ViewProduct from '../product/ViewProduct';
-import Cart from '../cart/Cart'
-import ValidateSession from '../utiles/ValidateSession';
+import { useSelector } from 'react-redux';
+import EditUser from '.././components/profile/EditUser';
+import Home from '.././components/home/Home';
+import Login from '.././components/home/Login';
+import Register from '.././components/home/Register';
+import ViewProfile from '.././components/profile/ViewProfile';
+import Admin from '.././components/admin/Admin';
+import AdminPanel from '.././components/admin/AdminPanel';
+import AddProduct from '.././components/admin/AddProduct';
+import EditProduct from '.././components/admin/EditProduct';
+import Products from '.././components/product/Products';
+import ViewProduct from '.././components/product/ViewProduct';
+import Cart from '../components/cart/Cart'
+import ValidateSession from '.././container/utils/ValidateSession';
+import GuardedRoute from '../container/utils/guardedRoute';
 
 
 function Router() {
 
-    ValidateSession()
+    // ValidateSession()
+    const { isLogin } = useSelector((state) => state.data)
 
     return (
         <>
@@ -27,6 +30,7 @@ function Router() {
                 <Route path='login' element={<Login />} />
                 <Route path='editProfile/:id' element={<EditUser />} />
                 <Route path='viewprofile' element={<ViewProfile />} />
+                {/* <GuardedRoute path='viewprofile' component={ViewProfile} appProps={isLogin} /> */}
                 <Route path='admin' element={<Admin />} />
                 <Route path='adminPanel' element={<AdminPanel />} />
                 <Route path='addproduct' element={<AddProduct />} />
