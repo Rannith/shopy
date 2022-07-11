@@ -13,7 +13,8 @@ const Products = React.memo(() => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    const token = jwtDecode(localStorage.getItem("token"))
+    let token
+
     const { category } = location.state
     const { products } = useSelector(state => state.data.products);
     const { user } = useSelector((state) => state.data.user)
@@ -34,9 +35,15 @@ const Products = React.memo(() => {
     }
 
     useEffect(() => {
-        dispatch(loadProducts(category));
-        dispatch(viewProfile(token.id))
-        handleClick()
+        if (localStorage.getItem('token')) {
+            token = jwtDecode(localStorage.getItem("token"))
+            dispatch(loadProducts(category));
+            dispatch(viewProfile(token.id))
+            handleClick()
+        }
+        else {
+            navigate('/login')
+        }
     }, [isLogin])
 
     console.log("PRODUCTS : ", products)

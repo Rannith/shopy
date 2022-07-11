@@ -13,7 +13,11 @@ function ViewProfile() {
     let dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const token = jwtDecode(localStorage.getItem("token"))
+    let token
+    if(localStorage.getItem('token')){
+        token = jwtDecode(localStorage.getItem("token"))
+    }
+    
     const { user } = useSelector(state => state.data.user)
     const { isLogin } = useSelector((state) => state.data)
 

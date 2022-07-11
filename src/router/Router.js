@@ -19,7 +19,7 @@ import GuardedRoute from '../container/utils/guardedRoute';
 
 function Router() {
 
-    // ValidateSession()
+    ValidateSession()
     const { isLogin } = useSelector((state) => state.data)
 
     return (

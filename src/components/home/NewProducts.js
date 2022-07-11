@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../../assets/css/NewProducts.css'
 import { addProductsToCart, loadNewProducts, loadPopularProducts } from '../../action/action'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 
 export class NewProducts extends Component {
@@ -21,7 +21,6 @@ export class NewProducts extends Component {
     }
 
     render() {
-
 
         const newProduct = this.props.products.newproducts.products;
         const popularProduct = this.props.products.popularproducts.products;

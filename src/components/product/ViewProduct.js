@@ -20,14 +20,20 @@ function ViewProduct() {
     let { id } = useParams();
     let dispatch = useDispatch();
     const navigate = useNavigate()
-    const token = jwtDecode(localStorage.getItem("token"))
+    let token
     const { product } = useSelector(state => state.data.product)
     const { productName, productImageUrl, oldPrice, newPrice } = state;
     const { user } = useSelector((state) => state.data.user)
 
+    if (localStorage.getItem('toke')) {
+        token = jwtDecode(localStorage.getItem("token"))
+    }
+
     useEffect(() => {
-        dispatch(getSingleProduct(id))
-        dispatch(viewProfile(token.id))
+        if (localStorage.getItem('token')) {
+            dispatch(getSingleProduct(id))
+            dispatch(viewProfile(token.id))
+        }
     }, [])
 
     useEffect(() => {

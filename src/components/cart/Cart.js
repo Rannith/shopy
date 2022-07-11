@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addProductsToCart, removeFromCart, viewUserCart } from '../../action/action'
+import { addProductsToCart, loadNewProducts, removeFromCart, viewUserCart } from '../../action/action'
 import '../../assets/css/Cart.css'
 import { Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
@@ -13,9 +13,11 @@ class Cart extends Component {
     }
 
     componentDidMount() {
-        const token = jwtDecode(localStorage.getItem("token"))
-        console.log("user id : ", token.id)
-        this.props.viewUserCart(token.id)
+        if (localStorage.getItem('token')) {
+            const token = jwtDecode(localStorage.getItem("token"))
+            console.log("user id : ", token.id)
+            this.props.viewUserCart(token.id)
+        }
     }
 
     // componentDidUpdate() {
@@ -26,8 +28,6 @@ class Cart extends Component {
 
     render() {
 
-        console.log("value : ", this.props.value)
-        let cartProducts = this.props.value.value
         const userCart = this.props.cart.userCart
         console.log("userCart : ", userCart)
         let quantity = 0
@@ -56,7 +56,7 @@ class Cart extends Component {
             console.log("product Id : ", product.productId)
 
             this.props.addProductsToCart(product.productId, product.userId)
-            window.location.reload(false) 
+            window.location.reload(false)
         }
 
         const subProductQuantity = (product) => {
@@ -67,7 +67,7 @@ class Cart extends Component {
             console.log("remove cart called", id)
 
             this.props.removeFromCart(id)
-            window.location.reload(false)   
+            window.location.reload(false)
         }
 
         return (
