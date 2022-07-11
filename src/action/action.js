@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as types from './actionType';
 import * as API from '../container/api/api'
-import axiosInscance from '../container/utils/axios-utils';
+import axiosInstance from '../container/utils/axios-utils';
 
 const getUsers = users => ({
   type: types.GET_USERS,
@@ -88,7 +88,6 @@ export const registerUser = (user) => {
 //Login User
 export const userLoggedIn = (loginCredential) => {
   return async function (dispatch) {
-    console.log("Loggin credential : "+loginCredential)
     axios
       .post("http://localhost:8000/users/login", loginCredential)
       .then((res) => {
@@ -114,7 +113,7 @@ export const setLoggedOut = () => ({
 //View Profile
 export const viewProfile = (id) => {
   return function (dispatch) {
-    axiosInscance({
+    axiosInstance({
       url: `users/my-profile/${id}`,
       method: 'get',
     })
@@ -141,16 +140,28 @@ export const viewProfile = (id) => {
 //Edit Profile
 export const editProfile = (user, id) => {
   return function (dispatch) {
-    axios
-      .put(`http://localhost:8000/users/${id}`, user)
-      .then((res) => {
-        console.log("res :", res)
-        dispatch(userUpdated());
-        dispatch(loadUsers())
-      })
-      .catch((error) => {
-        console.log("User Profile Error : "+error)
-      })
+    axiosInstance({
+      url: `users/${id}`,
+      method: 'put',
+      data: user
+    })
+    .then((res) => {
+      dispatch(userUpdated());
+      dispatch(loadUsers())
+    })
+    .catch((error) => {
+      console.log("User Update Error : ", error)
+    })
+    // axios
+    //   .put(`http://localhost:8000/users/${id}`, user)
+    //   .then((res) => {
+    //     console.log("res :", res)
+    //     dispatch(userUpdated());
+    //     dispatch(loadUsers())
+    //   })
+    //   .catch((error) => {
+    //     console.log("User Profile Error : "+error)
+    //   })
   }
 }
 

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const axiosInscance = axios.create({baseURL: "http://localhost:8000"})
+const axiosInstance = axios.create({baseURL: "http://localhost:8000"})
 
-axiosInscance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
     (request) => {
         const token = localStorage.getItem("token")
         request.headers["Authorization"] = token
@@ -13,4 +13,4 @@ axiosInscance.interceptors.request.use(
     }
 )
 
-export default axiosInscance
+export default axiosInstance

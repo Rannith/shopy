@@ -14,13 +14,11 @@ import Products from '.././components/product/Products';
 import ViewProduct from '.././components/product/ViewProduct';
 import Cart from '../components/cart/Cart'
 import ValidateSession from '.././container/utils/ValidateSession';
-import GuardedRoute from '../container/utils/guardedRoute';
 
 
 function Router() {
 
     ValidateSession()
-    const { isLogin } = useSelector((state) => state.data)
 
     return (
         <>
@@ -30,7 +28,6 @@ function Router() {
                 <Route path='login' element={<Login />} />
                 <Route path='editProfile/:id' element={<EditUser />} />
                 <Route path='viewprofile' element={<ViewProfile />} />
-                {/* <GuardedRoute path='viewprofile' component={ViewProfile} appProps={isLogin} /> */}
                 <Route path='admin' element={<Admin />} />
                 <Route path='adminPanel' element={<AdminPanel />} />
                 <Route path='addproduct' element={<AddProduct />} />
