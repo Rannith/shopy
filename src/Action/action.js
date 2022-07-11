@@ -7,6 +7,8 @@ const getUsers = users => ({
   payload: users,
 });
 
+
+
 const getProducts = (products) => ({
   type: types.GET_PRODUCTS,
   payload: products,
