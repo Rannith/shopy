@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as types from './actionType';
-import * as API from '../container/api/api'
 import axiosInstance from '../container/api/axios';
 
 const getUsers = users => ({
@@ -84,9 +83,10 @@ export const registerUser = (user) => {
       .then((res) => {
         dispatch(userAdded())
         dispatch(loadUsers())
+        dispatch(getSuccessMessage(res.data.message))
       })
       .catch((error) => {
-        console.log("Register error : ", error)
+        dispatch(getErrorMessage(error.response.data.error))
       })
     // axios
     //   .post(`http://localhost:8000/users/register`, user)
@@ -107,8 +107,8 @@ export const userLoggedIn = (loginCredential) => {
     axiosInstance.post(`/users/login`, loginCredential)
       .then((res) => {
         if (res) {
-          dispatch(getSuccessMessage(res.data.message))
           window.localStorage.setItem('token', res.data.token)
+          dispatch(getSuccessMessage(res.data.message))
         }
       })
       .catch( (error) => {
@@ -332,8 +332,9 @@ export const addProductsToCart = (product, userId) => {
   return function (dispatch) {
     axiosInstance
       .post(`/cart/${product._id}/${userId}`)
-      .then(() => {
+      .then((res) => {
         dispatch(addProductToCart())
+        dispatch(getSuccessMessage(res.data.message))
       })
       .catch(error => console.log(error))
   }

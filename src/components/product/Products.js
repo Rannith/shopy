@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductsToCart, loadProducts, addQuantity, setLoggedIn, viewProfile } from '../../action/action'
 import '../../assets/css/Products.css'
@@ -6,14 +6,16 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import Footer from '../shared/Footer'
 import NavBar from '../shared/NavBar'
 import jwtDecode from 'jwt-decode'
-import { useAlert } from 'react-alert'
+import ReactjsAlert from 'reactjs-alert'
 
 const Products = React.memo(() => {
 
     let dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
-    // const alert = useAlert()
+    const [status, setStatus] = useState(false);
+    const [type, setType] = useState("success");
+    const [title, setTitle] = useState("");
 
     let token
 
@@ -21,6 +23,7 @@ const Products = React.memo(() => {
     const { products } = useSelector(state => state.data.products);
     const { user } = useSelector((state) => state.data.user)
     const { isLogin } = useSelector((state) => state.data)
+    const { successmessage } = useSelector(state => state.data)
 
     console.log("USER : ", user)
 
@@ -78,8 +81,9 @@ const Products = React.memo(() => {
     }
 
     const addToCart = (product, userId) => {
+        setStatus(true)
+        setTitle(successmessage)
         dispatch(addProductsToCart(product, userId))
-        // alert.success('Cart added successfully')
     }
 
     return (
@@ -158,6 +162,12 @@ const Products = React.memo(() => {
                 </div>
             </div>
             <Footer />
+            <ReactjsAlert
+                status={status} // true or false
+                type={type} // success, warning, error, info
+                title={title}
+                Close={() => setStatus(false)}
+            />
         </>
     )
 })

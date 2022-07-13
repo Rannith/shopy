@@ -2,15 +2,18 @@ import React, { Component } from 'react'
 import '../../assets/css/NewProducts.css'
 import { addProductsToCart, loadNewProducts, loadPopularProducts } from '../../action/action'
 import { connect } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
+import ReactjsAlert from 'reactjs-alert'
 
 export class NewProducts extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            size: "contain"
+            status: false,
+            type: "success",
+            title: ""
         }
     }
 
@@ -26,6 +29,11 @@ export class NewProducts extends Component {
         const popularProduct = this.props.products.popularproducts.products;
 
         const handleCart = (product) => {
+            this.setState({
+                status: true,
+                type: "success",
+                title: this.props.successmessage.successmessage
+            })
             const token = jwtDecode(localStorage.getItem("token"))
             this.props.addProductsToCart(product, token.id)
         }
@@ -47,7 +55,7 @@ export class NewProducts extends Component {
                             {
                                 popularProduct && popularProduct.slice(0, 4).map((product) => {
                                     return (
-                                        <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product.id} >
+                                        <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product._id} >
                                             <div className="bg-white rounded shadow-sm">
                                                 <img
                                                     src={product.productImageUrl}
@@ -84,7 +92,7 @@ export class NewProducts extends Component {
                             {
                                 newProduct && newProduct.slice(0, 4).map((product) => {
                                     return (
-                                        <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product.id} >
+                                        <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product._id} >
                                             <div className="bg-white rounded shadow-sm">
                                                 <img
                                                     src={product.productImageUrl}
@@ -112,6 +120,12 @@ export class NewProducts extends Component {
                         </div>
                     </div>
                 </section>
+                <ReactjsAlert
+                    status={this.state.status}
+                    type={this.state.type}
+                    title={this.state.title}
+                    Close={() => this.setState({status: false})}
+                />
             </div>
         )
     }
@@ -120,7 +134,7 @@ export class NewProducts extends Component {
 const mapStateToProps = state => {
     return {
         products: state.data,
-        value: state.data
+        successmessage: state.data
     }
 }
 

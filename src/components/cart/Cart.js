@@ -62,7 +62,8 @@ class Cart extends Component {
         const subQuantity = (product) => {
             console.log("IN SUB")
             // product.quantity > 1 && this.props.subQuantity(product.id, product)
-            this.props.subProductQuantity(product.productId, product.userId)
+            if (product.quantity > 1)
+                this.props.subProductQuantity(product.productId, product.userId)
             window.location.reload(false)
         }
 
@@ -172,7 +173,7 @@ const mapDispatchToProps = dispatch => {
         viewUserCart: (id) => dispatch(viewUserCart(id)),
         removeFromCart: (id) => dispatch(removeFromCart(id)),
         addProductsToCart: (id, product) => dispatch(addProductsToCart(id, product)),
-        subProductQuantity: (id, product) => dispatch(subProductQuantity(id,product))
+        subProductQuantity: (id, product) => dispatch(subProductQuantity(id, product))
     }
 }
 

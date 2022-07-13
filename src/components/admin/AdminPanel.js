@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { deleteProduct, loadProducts } from '../../action/action';
+import { deleteProduct, loadProducts, setLoggedOut } from '../../action/action';
 import '../../assets/css/AdminPanel.css'
 
 function AdminPanel() {
@@ -21,7 +21,7 @@ function AdminPanel() {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-
+        dispatch(setLoggedOut())
         navigate('/')
     }
 

@@ -6,7 +6,8 @@ import { addProductsToCart, getSingleProduct, viewProfile } from '../../action/a
 import '../../assets/css/ViewProduct.css'
 import jwtDecode from 'jwt-decode';
 import ValidateSession from '../../container/utils/ValidateSession';
-import { useAlert } from 'react-alert';
+// import { useAlert } from 'react-alert';
+import ReactjsAlert from 'reactjs-alert';
 
 
 function ViewProduct() {
@@ -21,19 +22,23 @@ function ViewProduct() {
     let { id } = useParams();
     let dispatch = useDispatch();
     const navigate = useNavigate()
-    const alert = useAlert()
+    const [status, setStatus] = useState(false);
+    const [type, setType] = useState("success");
+    const [title, setTitle] = useState("");
     let token
     const { product } = useSelector(state => state.data.product)
     const { productName, productImageUrl, oldPrice, newPrice } = state;
     const { user } = useSelector((state) => state.data.user)
+    const { successmessage } = useSelector(state => state.data)
 
+        console.log("message : ", successmessage);
     if (localStorage.getItem('token')) {
         token = jwtDecode(localStorage.getItem("token"))
     }
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            dispatch(getSingleProduct(id))  
+            dispatch(getSingleProduct(id))
             dispatch(viewProfile(token.id))
         }
     }, [])
@@ -45,7 +50,8 @@ function ViewProduct() {
     }, [product])
 
     const handleCart = () => {
-        alert.show("Cart added succcess fully")
+        setStatus(true)
+        setTitle(successmessage)
         dispatch(addProductsToCart(product, user._id))
     }
 
@@ -97,6 +103,12 @@ function ViewProduct() {
                     </div>
                 </div>
             </div>
+            <ReactjsAlert
+                status={status} // true or false
+                type={type} // success, warning, error, info
+                title={title}
+                Close={() => setStatus(false)}
+            />
         </>
     )
 }

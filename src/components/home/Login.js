@@ -4,9 +4,8 @@ import login from '../../assets/images/login.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUsers, setLoggedIn, userLoggedIn } from '../../action/action'
-import CryptoJS from 'crypto-js'
-import { KEY } from '../../container/constant/index'
 import ValidateLogin from '../../container/utils/ValidateLogin';
+import ReactjsAlert from 'reactjs-alert';
 
 function Login() {
 
@@ -15,10 +14,9 @@ function Login() {
 
     let [emailError, setEmailError] = useState("");
     let [passwordError, setPasswordError] = useState("");
-
-    const emailField = document.getElementById('email');
-    const passwordField = document.getElementById('password');
-    console.log(emailField, passwordField)
+    const [status, setStatus] = useState(false);
+    const [type, setType] = useState("success");
+    const [title, setTitle] = useState("");
 
     let currentDate = new Date();
     let currentTime = currentDate.getHours();
@@ -33,7 +31,10 @@ function Login() {
         let emailError = error.emailError;
         let passwordError = error.passwordError;
 
-        if (emailError ) {
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+
+        if (emailError) {
             console.log("In Email Erorr")
             setEmailError(emailError);
             emailField.classList.add('is-invalid')
@@ -41,7 +42,7 @@ function Login() {
             emailField.classList.remove('is-invalid')
         }
 
-        if (passwordError ) {
+        if (passwordError) {
             setPasswordError(passwordError)
             passwordField.classList.add('is-invalid')
         } else {
@@ -58,13 +59,24 @@ function Login() {
     const navigate = useNavigate();
 
     let dispatch = useDispatch();
-    const { users } = useSelector(state => state.data)
     const { errormessage } = useSelector(state => state.data)
+    const { successmessage } = useSelector(state => state.data)
 
     useEffect(() => {
-        
         dispatch(loadUsers())
-    }, [])
+        if (successmessage) {
+            setStatus(true)
+            setType("success")
+            setTitle(successmessage)
+            dispatch(setLoggedIn())
+            navigate('/');
+        }
+        else if (errormessage) {
+            setStatus(true)
+            setType("error")
+            setTitle(errormessage)
+        }
+    }, [successmessage, errormessage])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -73,11 +85,8 @@ function Login() {
 
         const isValid = validate();
 
-        if (isValid) {   
-            dispatch(userLoggedIn({email: email, password: password}))
-            dispatch(setLoggedIn())
-            console.log("ERROR : ", errormessage);
-            // navigate('/');
+        if (isValid) {
+            dispatch(userLoggedIn({ email: email, password: password, role: "user" }))
         }
     }
 
@@ -93,10 +102,10 @@ function Login() {
                                     <div className='col-md-6 mb-4 mb-md-0'>
                                         <h2 className='auth-section-title'>Log In</h2>
                                         <p className='auth-section-subtitle'>Sign in to your account to continue.</p>
-                                        <form action='#' method='POST' onSubmit={handleSubmit}>
+                                        <form method='POST' onSubmit={handleSubmit}>
                                             <div className='form-group'>
                                                 <label htmlFor='email'>Email<sup>*</sup></label>
-                                                <input type='email' className='form-control' id='email' name='email' placeholder='Email' value={email|| ""} onChange={e => setEmail(e.target.value)} />
+                                                <input type='email' className='form-control' id='email' name='email' placeholder='Email' value={email || ""} onChange={e => setEmail(e.target.value)} />
                                                 <strong className='invalid-feedback' >{emailError}</strong>
                                             </div>
                                             <div className='form-group'>
@@ -120,6 +129,12 @@ function Login() {
                     </div>
                 </div>
             </main>
+            <ReactjsAlert
+                status={status} // true or false
+                type={type} // success, warning, error, info
+                title={title}
+                Close={() => setStatus(false)}
+            />
         </>
     )
 }

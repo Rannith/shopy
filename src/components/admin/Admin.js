@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import '../../assets/css/Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
-import CryptoJS from 'crypto-js';
-import { KEY } from '../../container/constant/index'
-import * as API from '../../container/api/api'
 import ValidateLogin from '../../container/utils/ValidateLogin';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoggedIn, userLoggedIn } from '../../action/action'
+import ReactjsAlert from 'reactjs-alert';
 
 function Admin() {
 
@@ -16,7 +15,6 @@ function Admin() {
     });
 
     const { email, password } = state;
-    const [user, setUser] = useState("");
 
     const handleInputChange = (e) => {
         let { name, value } = e.target;
@@ -25,18 +23,21 @@ function Admin() {
 
     let [emailError, setEmailError] = useState("");
     let [passwordError, setPasswordError] = useState("");
-
-    const emailField = document.getElementById('email');
-    const passwordField = document.getElementById('password');
+    const [status, setStatus] = useState(false);
+    const [type, setType] = useState("success");
+    const [title, setTitle] = useState("");
 
     const validate = () => {
 
         const error = ValidateLogin(email, password)
 
         let emailError = error.emailError;
-        let passwordError = error.passwordError ;
+        let passwordError = error.passwordError;
 
-        if(emailError) {
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+
+        if (emailError) {
             setEmailError(emailError);
             emailField.classList.add('is-invalid')
         } else {
@@ -50,69 +51,40 @@ function Admin() {
             passwordField.classList.remove('is-invalid')
         }
 
-        if(emailError || passwordError) {
+        if (emailError || passwordError) {
             return false;
         }
 
         return true
     }
 
-    const authentication = () => {
-
-        let profile = user.find((index) => index.email === email && index.password === password)
-        const button = document.getElementById('login-button');
-
-        if (profile !== undefined) {
-            console.log("ADMIN FOUND")
-            const token = createToken();
-            localStorage.setItem("token", token)
-            passwordField.classList.remove('is-invalid')
-            emailField.classList.remove('is-invalid')
-            button.classList.remove('is-invalid')
-            return true
-        }
-        else {
-            console.log("USER NOT FOUND")
-            emailField.classList.add('is-invalid')
-            passwordField.classList.add('is-invalid')
-            button.classList.add('is-invalid')
-            return false
-        }
-    }
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { errormessage } = useSelector(state => state.data)
+    const { successmessage } = useSelector(state => state.data)
 
     useEffect(() => {
-        getAdmin()
-    }, [])
-
-    const getAdmin = () => {
-        axios.get(API.API_ADMIN).then((res) => {
-            const allUser = res.data;
-            setUser(allUser)
-        })
-    }
-
-    const createToken = () => {
-
-        let data = {
-            email: email,
-            password: password
+        if (successmessage) {
+            setStatus(true)
+            setType("success")
+            setTitle(successmessage)
+            dispatch(setLoggedIn())
+            navigate('/adminPanel');
         }
-        let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), KEY).toString();
-
-        return ciphertext
-
-    }
-
-    const navigate = useNavigate();
+        else if (errormessage) {
+            setStatus(true)
+            setType("error")
+            setTitle(errormessage)
+        }
+    }, [successmessage, errormessage])
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const isValid = validate();
-        const auth = authentication();
 
-        if(isValid && auth ) {   
-            navigate('/adminpanel');
+        if (isValid) {
+            dispatch(userLoggedIn({ email: email, password: password, role: "admin" }))
         }
 
     }
@@ -153,6 +125,12 @@ function Admin() {
                     </div>
                 </div>
             </main>
+            <ReactjsAlert
+                status={status} // true or false
+                type={type} // success, warning, error, info
+                title={title}
+                Close={() => setStatus(false)}
+            />
         </>
     )
 }
