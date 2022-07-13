@@ -9,6 +9,8 @@ const initialState = {
     product: {},
     loading: true,
     cart: [],
+    successmessage: "",
+    errormessage: "",
     isLogin: false
 };
 
@@ -47,6 +49,18 @@ const userReducers = (state = initialState, action) => {
             return {
                 ...state,
                 isLogin: false
+            }
+        case types.GET_SUCCESS_MESSAGE:
+            return {
+                ...state,
+                successmessage: action.payload,
+                loading: true
+            }
+        case types.GET_ERROR_MESSAGE:
+            return {
+                ...state,
+                errormessage: action.payload,
+                loading: false
             }
         case types.DELETE_USER:
         case types.DELETE_PRODUCT:

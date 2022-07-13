@@ -18,6 +18,7 @@ function Login() {
 
     const emailField = document.getElementById('email');
     const passwordField = document.getElementById('password');
+    console.log(emailField, passwordField)
 
     let currentDate = new Date();
     let currentTime = currentDate.getHours();
@@ -27,18 +28,20 @@ function Login() {
     const validate = () => {
 
         const error = ValidateLogin(email, password)
+        console.log(error)
 
         let emailError = error.emailError;
         let passwordError = error.passwordError;
 
-        if (emailError) {
+        if (emailError ) {
+            console.log("In Email Erorr")
             setEmailError(emailError);
             emailField.classList.add('is-invalid')
         } else {
             emailField.classList.remove('is-invalid')
         }
 
-        if (passwordError) {
+        if (passwordError ) {
             setPasswordError(passwordError)
             passwordField.classList.add('is-invalid')
         } else {
@@ -56,64 +59,25 @@ function Login() {
 
     let dispatch = useDispatch();
     const { users } = useSelector(state => state.data)
+    const { errormessage } = useSelector(state => state.data)
 
     useEffect(() => {
+        
         dispatch(loadUsers())
     }, [])
-
-    const createToken = () => {
-
-        let data = {
-            email: email,
-            password: password,
-            currentTime: currentTime
-        }
-        let ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), KEY).toString();
-
-        return ciphertext
-
-    }
-
-    const authentication = () => {
-        console.log("user", users)
-
-        let profile = users.find((index) => index.email === email && index.password === password)
-        const button = document.getElementById('login-button');
-
-        console.log("pro", profile)
-
-        if (profile !== undefined) {
-            localStorage.setItem("id", profile.id)
-            let token = createToken()
-            localStorage.setItem("token", token)
-            console.log("USER FOUND")
-            passwordField.classList.remove('is-invalid')
-            emailField.classList.remove('is-invalid')
-            button.classList.remove('is-invalid')
-            return true
-        }
-        else {
-            console.log("USER NOT FOUND")
-            emailField.classList.add('is-invalid')
-            passwordField.classList.add('is-invalid')
-            button.classList.add('is-invalid')
-            return false
-        }
-    }
 
     const handleSubmit = e => {
         e.preventDefault();
 
-        console.log('in handlesubmit')
+        console.log('in handlesubmit', validate())
 
         const isValid = validate();
-        // const auth = authentication();
 
-        if (isValid) {   //old code: if(isValid && auth)
+        if (isValid) {   
             dispatch(userLoggedIn({email: email, password: password}))
             dispatch(setLoggedIn())
-            navigate('/');
-            // window.location.reload();
+            console.log("ERROR : ", errormessage);
+            // navigate('/');
         }
     }
 
@@ -132,12 +96,12 @@ function Login() {
                                         <form action='#' method='POST' onSubmit={handleSubmit}>
                                             <div className='form-group'>
                                                 <label htmlFor='email'>Email<sup>*</sup></label>
-                                                <input type='email' className='form-control' id='email' name='email' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
+                                                <input type='email' className='form-control' id='email' name='email' placeholder='Email' value={email|| ""} onChange={e => setEmail(e.target.value)} />
                                                 <strong className='invalid-feedback' >{emailError}</strong>
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='password'>Password<sup>*</sup></label>
-                                                <input type='password' className='form-control' id='password' name='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
+                                                <input type='password' className='form-control' id='password' name='password' placeholder='Password' value={password || ""} onChange={e => setPassword(e.target.value)} />
                                                 <strong className='invalid-feedback' >{passwordError}</strong>
                                             </div>
                                             <button className="btn btn-primary btn-auth-submit" id='login-button' type="submit">Submit</button>

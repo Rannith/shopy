@@ -1,6 +1,7 @@
 import * as regex from '../constant/index'
 
 function ValidateLogin(email, password) {
+    console.log("IN Validation")
     const error = {
         emailError : "",
         passwordError : ""

@@ -102,7 +102,7 @@ function ViewProfile() {
                                 <div className="d-flex justify-content-between align-items-center mb-3">
                                     <div className="d-flex flex-row align-items-center back">
                                         <i className="fa fa-long-arrow-left mr-1 mb-1" />
-                                        <NavLink to={-1}><a>Back to home</a></NavLink> 
+                                        <NavLink to={-1}><button className='backTOHome btn' >Back to home</button></NavLink> 
                                     </div>
                                     <button className="text-right btn btn-primary" onClick={() => navigate(`/editProfile/${_id}`)}>Edit Profile</button>
                                 </div>

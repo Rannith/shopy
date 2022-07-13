@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function ValidateSession() {
@@ -7,6 +6,8 @@ function ValidateSession() {
     const navigate = useNavigate()
 
     const ValidateSession = () => {
+        
+        console.log("IN SESSION VALSIDATION")
 
         let url = window.location.href;
 

@@ -6,12 +6,14 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import Footer from '../shared/Footer'
 import NavBar from '../shared/NavBar'
 import jwtDecode from 'jwt-decode'
+import { useAlert } from 'react-alert'
 
 const Products = React.memo(() => {
 
     let dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
+    // const alert = useAlert()
 
     let token
 
@@ -77,6 +79,7 @@ const Products = React.memo(() => {
 
     const addToCart = (product, userId) => {
         dispatch(addProductsToCart(product, userId))
+        // alert.success('Cart added successfully')
     }
 
     return (
@@ -86,7 +89,7 @@ const Products = React.memo(() => {
                 <nav className="navbar navbar-expand-md navbar-light bg-white">
                     <div className="container-fluid p-0">
                         <a className="navbar-brand text-uppercase fw-800">
-                            <span className="border-red pe-2">SHOPY</span>Our Products
+                            <span className="border-red pe-2">SHOPY</span>
                         </a>
                         <button
                             className="navbar-toggler"

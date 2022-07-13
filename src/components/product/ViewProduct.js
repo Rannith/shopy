@@ -6,6 +6,7 @@ import { addProductsToCart, getSingleProduct, viewProfile } from '../../action/a
 import '../../assets/css/ViewProduct.css'
 import jwtDecode from 'jwt-decode';
 import ValidateSession from '../../container/utils/ValidateSession';
+import { useAlert } from 'react-alert';
 
 
 function ViewProduct() {
@@ -20,18 +21,19 @@ function ViewProduct() {
     let { id } = useParams();
     let dispatch = useDispatch();
     const navigate = useNavigate()
+    const alert = useAlert()
     let token
     const { product } = useSelector(state => state.data.product)
     const { productName, productImageUrl, oldPrice, newPrice } = state;
     const { user } = useSelector((state) => state.data.user)
 
-    if (localStorage.getItem('toke')) {
+    if (localStorage.getItem('token')) {
         token = jwtDecode(localStorage.getItem("token"))
     }
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            dispatch(getSingleProduct(id))
+            dispatch(getSingleProduct(id))  
             dispatch(viewProfile(token.id))
         }
     }, [])
@@ -43,6 +45,7 @@ function ViewProduct() {
     }, [product])
 
     const handleCart = () => {
+        alert.show("Cart added succcess fully")
         dispatch(addProductsToCart(product, user._id))
     }
 

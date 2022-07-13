@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addProductsToCart, loadNewProducts, removeFromCart, viewUserCart } from '../../action/action'
+import { addProductsToCart, loadNewProducts, removeFromCart, subProductQuantity, viewUserCart } from '../../action/action'
 import '../../assets/css/Cart.css'
 import { Link } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
@@ -59,8 +59,11 @@ class Cart extends Component {
             window.location.reload(false)
         }
 
-        const subProductQuantity = (product) => {
-            product.quantity > 1 && this.props.subQuantity(product.id, product)
+        const subQuantity = (product) => {
+            console.log("IN SUB")
+            // product.quantity > 1 && this.props.subQuantity(product.id, product)
+            this.props.subProductQuantity(product.productId, product.userId)
+            window.location.reload(false)
         }
 
         const handleRemoveCart = (id) => {
@@ -105,7 +108,7 @@ class Cart extends Component {
                                                     <div className="row">{product.productId.productName}</div>
                                                 </div>
                                                 <div className="col">
-                                                    <a onClick={() => subProductQuantity(product)} >-</a>
+                                                    <a onClick={() => subQuantity(product)} >-</a>
                                                     <a className="border quantity">
                                                         {product.quantity}
                                                     </a>
@@ -169,6 +172,7 @@ const mapDispatchToProps = dispatch => {
         viewUserCart: (id) => dispatch(viewUserCart(id)),
         removeFromCart: (id) => dispatch(removeFromCart(id)),
         addProductsToCart: (id, product) => dispatch(addProductsToCart(id, product)),
+        subProductQuantity: (id, product) => dispatch(subProductQuantity(id,product))
     }
 }
 

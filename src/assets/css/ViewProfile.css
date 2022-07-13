@@ -21,9 +21,17 @@
 }
 
 .view-profile .action-button:hover {
-    color:#fff;
+    color: #fff;
     background-color: rgba(255, 255, 255, 0.281);
-  }
+}
+
+.backTOHome {
+    color: aliceblue;
+}
+
+.backTOHome:hover {
+    color: #ebeff1;
+}
 
 .back:hover {
     color: yellow;

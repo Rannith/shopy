@@ -1,14 +1,12 @@
 import axios from 'axios';
 import * as types from './actionType';
 import * as API from '../container/api/api'
-import axiosInstance from '../container/utils/axios-utils';
+import axiosInstance from '../container/api/axios';
 
 const getUsers = users => ({
   type: types.GET_USERS,
   payload: users,
 });
-
-
 
 const getProducts = (products) => ({
   type: types.GET_PRODUCTS,
@@ -69,35 +67,63 @@ const getUserCart = (cart) => ({
   payload: cart
 })
 
+const getSuccessMessage = (message) => ({
+  type: types.GET_SUCCESS_MESSAGE,
+  payload: message
+})
+
+const getErrorMessage = (message) => ({
+  type: types.GET_ERROR_MESSAGE,
+  payload: message
+})
+
 //Register User
 export const registerUser = (user) => {
   return function (dispatch) {
-    axios
-      .post(`http://localhost:8000/users/register`, user)
+    axiosInstance.post(`/users/register`, user)
       .then((res) => {
-        console.log("res :", res)
-        dispatch(userAdded());
+        dispatch(userAdded())
         dispatch(loadUsers())
       })
       .catch((error) => {
-        console.log(error)
+        console.log("Register error : ", error)
       })
+    // axios
+    //   .post(`http://localhost:8000/users/register`, user)
+    //   .then((res) => {
+    //     console.log("res :", res)
+    //     dispatch(userAdded());
+    //     dispatch(loadUsers())
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
   }
 }
 
 //Login User
 export const userLoggedIn = (loginCredential) => {
   return async function (dispatch) {
-    axios
-      .post("http://localhost:8000/users/login", loginCredential)
+    axiosInstance.post(`/users/login`, loginCredential)
       .then((res) => {
-        console.log("res : ", res)
-        if (res)
+        if (res) {
+          dispatch(getSuccessMessage(res.data.message))
           window.localStorage.setItem('token', res.data.token)
+        }
       })
-      .catch(error => {
-        console.log("Loggin error ", error.response.data.error)
+      .catch( (error) => {
+        dispatch(getErrorMessage(error.response.data.error))
       })
+    // axios
+    //   .post("http://localhost:8000/users/login", loginCredential)
+    //   .then((res) => {
+    //     console.log("res : ", res)
+    //     if (res)
+    //       window.localStorage.setItem('token', res.data.token)
+    //   })
+    //   .catch(error => {
+    //     console.log("Loggin error ", error.response.data.error)
+    //   })
   }
 }
 
@@ -113,17 +139,14 @@ export const setLoggedOut = () => ({
 //View Profile
 export const viewProfile = (id) => {
   return function (dispatch) {
-    axiosInstance({
-      url: `users/my-profile/${id}`,
-      method: 'get',
-    })
-    .then((res) => {
-      dispatch(getUser(res.data))
-      dispatch(loadUsers())
-    })
-    .catch((error) => {
-      console.log("View profile Error : "+ error)
-    })
+    axiosInstance.get(`users/my-profile/${id}`)
+      .then((res) => {
+        dispatch(getUser(res.data))
+        dispatch(loadUsers())
+      })
+      .catch((error) => {
+        console.log("View profile Error : " + error)
+      })
     // axios
     //   .get(`http://localhost:8000/users/my-profile/${id}`)
     //   .then((res) => {
@@ -140,18 +163,14 @@ export const viewProfile = (id) => {
 //Edit Profile
 export const editProfile = (user, id) => {
   return function (dispatch) {
-    axiosInstance({
-      url: `users/${id}`,
-      method: 'put',
-      data: user
-    })
-    .then((res) => {
-      dispatch(userUpdated());
-      dispatch(loadUsers())
-    })
-    .catch((error) => {
-      console.log("User Update Error : ", error)
-    })
+    axiosInstance.put(`users/${id}`, user)
+      .then(() => {
+        dispatch(userUpdated());
+        dispatch(loadUsers())
+      })
+      .catch((error) => {
+        console.log("User Update Error : ", error)
+      })
     // axios
     //   .put(`http://localhost:8000/users/${id}`, user)
     //   .then((res) => {
@@ -170,22 +189,37 @@ export const loadProducts = (category) => {
 
   if (category === undefined) {
     return function (dispatch) {
-      axios
-        .get(`http://localhost:8000/product`)
-        .then((resp) => {
-          console.log("resp", resp);
-          dispatch(getProducts(resp.data));
+      axiosInstance.get(`/product`)
+        .then((res) => {
+          console.log("resp", res.data);
+          dispatch(getProducts(res.data));
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log("Product error : ", error)
+        })
+      // axios
+      //   .get(`http://localhost:8000/product`)
+      //   .then((resp) => {
+      //     console.log("resp", resp);
+      //     dispatch(getProducts(resp.data));
+      //   })
+      //   .catch((error) => console.log(error));
     };
   } else {
     return function (dispatch) {
-      axios
-        .get(`http://localhost:8000/product?category=${category}`)
+      axiosInstance.get(`/product?category=${category}`)
         .then((res) => {
           dispatch(getProducts(res.data))
         })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          console.log("PRoduct Error : ", error)
+        })
+      // axios
+      //   .get(`http://localhost:8000/product?category=${category}`)
+      //   .then((res) => {
+      //     dispatch(getProducts(res.data))
+      //   })
+      //   .catch((error) => console.log(error))
     }
   }
 };
@@ -207,23 +241,30 @@ export const loadUsers = () => {
 //View Single product
 export const getSingleProduct = (id) => {
   return function (dispatch) {
-    console.log("ACTION PARAM : ", id)
-    axios
-      .get(`http://localhost:8000/product/${id}`)
-      .then((resp) => {
-        console.log("resp", resp.data);
-        dispatch(getProduct(resp.data));
+    axiosInstance.get(`product/${id}`)
+      .then((res) => {
+        dispatch(getProduct(res.data));
         dispatch(loadProducts());
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log("View Product Error : ", error)
+      })
+    // axios
+    //   .get(`http://localhost:8000/product/${id}`)
+    //   .then((resp) => {
+    //     console.log("resp", resp.data);
+    //     dispatch(getProduct(resp.data));
+    //     dispatch(loadProducts());
+    //   })
+    //   .catch((error) => console.log(error));
   };
 };
 
 //Add Product
 export const addProduct = (product) => {
   return function (dispatch) {
-    axios
-      .post(`http://localhost:8000/product/`, product)
+    axiosInstance
+      .post(`/product/`, product)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(productAdded());
@@ -236,8 +277,8 @@ export const addProduct = (product) => {
 //Update Product
 export const updateProduct = (product, id) => {
   return function (dispatch) {
-    axios
-      .put(`http://localhost:8000/product/${id}`, product)
+    axiosInstance
+      .put(`/product/${id}`, product)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(productUpdated());
@@ -251,8 +292,8 @@ export const updateProduct = (product, id) => {
 
 export const deleteProduct = (id) => {
   return function (dispatch) {
-    axios
-      .delete(`http://localhost:8000/product/${id}`)
+    axiosInstance
+      .delete(`/product/${id}`)
       .then((resp) => {
         console.log("resp", resp);
         dispatch(productDeleted());
@@ -266,8 +307,8 @@ export const deleteProduct = (id) => {
 
 export const loadNewProducts = () => {
   return function (dispatch) {
-    axios
-      .get(`http://localhost:8000/product/view/?productType=new_product`)
+    axiosInstance
+      .get(`/product/view/?productType=new_product`)
       .then((res) => {
         dispatch(getNewProducts(res.data))
       })
@@ -277,8 +318,8 @@ export const loadNewProducts = () => {
 
 export const loadPopularProducts = () => {
   return function (dispatch) {
-    axios
-      .get(`http://localhost:8000/product/view/?productType=popular_product`)
+    axiosInstance
+      .get(`/product/view/?productType=popular_product`)
       .then((res) => {
         dispatch(getPopularProducts(res.data))
       })
@@ -289,10 +330,9 @@ export const loadPopularProducts = () => {
 //Add Product to Cart
 export const addProductsToCart = (product, userId) => {
   return function (dispatch) {
-    console.log("IN ACTION Product ID : "+ product._id+ "IN ACTION User Id : "+ userId)
-    axios
-      .post(`http://localhost:8000/cart/${product._id}/${userId}`)
-      .then((res) => {
+    axiosInstance
+      .post(`/cart/${product._id}/${userId}`)
+      .then(() => {
         dispatch(addProductToCart())
       })
       .catch(error => console.log(error))
@@ -302,8 +342,8 @@ export const addProductsToCart = (product, userId) => {
 //View My Cart
 export const viewUserCart = (id) => {
   return function (dispatch) {
-    axios
-      .get(`http://localhost:8000/cart/${id}`)
+    axiosInstance
+      .get(`/cart/${id}`)
       .then((res) => {
         console.log("res : ", res)
         dispatch(getUserCart(res.data))
@@ -312,11 +352,26 @@ export const viewUserCart = (id) => {
   }
 }
 
+//Update quantity
+export const subProductQuantity = (productId, userId) => {
+  return function (dispatch) {
+    console.log("Product ID : " + productId._id + " User Id : " + userId);
+    axiosInstance
+      .put(`/cart/${productId._id}/${userId}`)
+      .then((res) => {
+        dispatch(updateQuantity())
+      })
+      .catch((error) => {
+        console.log("Update Quantity Error : ", error)
+      })
+  }
+}
+
 //remove from cart
 export const removeFromCart = (id) => {
   return function (dispatch) {
-    axios
-      .delete(`http://localhost:8000/cart/${id}`)
+    axiosInstance
+      .delete(`/cart/${id}`)
       .then((res) => {
         console.log("res :", res)
         dispatch(removeProductFromCart());
@@ -329,8 +384,8 @@ export const removeFromCart = (id) => {
 
 export const deleteUser = (id) => {
   return function (dispatch) {
-    axios
-      .delete(`${process.env.REACT_APP_API}/${id}`)
+    axiosInstance
+      .delete(`/users/${id}`)
       .then((res) => {
         console.log("res :", res)
         dispatch(userDeleted());
@@ -346,6 +401,10 @@ export const deleteUser = (id) => {
 
 const addProductToCart = () => ({
   type: types.ADD_TO_CART
+})
+
+const updateQuantity = () => ({
+  type: types.UPDATE_QTY
 })
 
 const removeProductFromCart = () => ({
