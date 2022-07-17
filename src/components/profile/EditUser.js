@@ -208,7 +208,7 @@ function EditUser() {
                                 </form>
                                 </div>
                                 <div className="col-md-6 d-flex align-items-center">
-                                    <img src="" alt="Edit Profile" className="img-fluid"/>
+                                    <img src="https://www.open.edu.au/-/media/blog/2016/09-sept/female-notebook-writing-sunny.jpg?rev=b834e2f825dc49f49fd80d951728c4c5&hash=324D7C36123DBC9B193FDD9B4C21D0DF" alt="Edit Profile" className="img-fluid"/>
                                 </div>
                             </div>
                         </section>

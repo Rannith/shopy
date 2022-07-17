@@ -11,6 +11,7 @@ const initialState = {
     cart: [],
     successmessage: "",
     errormessage: "",
+    productsCategory: [],
     isLogin: false
 };
 
@@ -38,6 +39,12 @@ const userReducers = (state = initialState, action) => {
             return {
                 ...state,
                 newproducts: action.payload,
+                loading: false
+            }
+        case types.GET_PRODUCTS_CATEGORY:
+            return {
+                ...state,
+                productsCategory: action.payload,
                 loading: false
             }
         case types.SET_LOGIN:

@@ -21,18 +21,43 @@ export class NewProducts extends Component {
 
         this.props.loadPopularProducts();
         this.props.loadNewProducts()
+        if (this.props.successmessage.successmessage !== "Successfully Login" && this.props.successmessage.successmessage !== "") {
+            this.setState({
+                status: true,
+                type: "success",
+                title: this.props.successmessage.successmessage
+            })
+        }
     }
+
+    // componentDidUpdate() {
+    //     if(this.props.successmessage.successmessage !== "Successfully Login" && this.props.successmessage.successmessage !== "") {
+    //         this.setState({
+    //             status: true,
+    //             type: "success",
+    //             title: this.props.successmessage.successmessage
+    //         })
+    //     }
+    // }
 
     render() {
 
         const newProduct = this.props.products.newproducts.products;
         const popularProduct = this.props.products.popularproducts.products;
 
-        const handleCart = (product) => {
-            this.setState({
+        const handleCart = async (product) => {
+            await this.setState({
                 status: true,
                 type: "success",
                 title: this.props.successmessage.successmessage
+            }, () => {
+                if (this.props.successmessage.successmessage !== "Successfully Login" && this.props.successmessage.successmessage !== "") {
+                    this.setState({
+                        status: true,
+                        type: "success",
+                        title: this.props.successmessage.successmessage
+                    })
+                }
             })
             const token = jwtDecode(localStorage.getItem("token"))
             this.props.addProductsToCart(product, token.id)
@@ -124,7 +149,7 @@ export class NewProducts extends Component {
                     status={this.state.status}
                     type={this.state.type}
                     title={this.state.title}
-                    Close={() => this.setState({status: false})}
+                    Close={() => this.setState({ status: false })}
                 />
             </div>
         )

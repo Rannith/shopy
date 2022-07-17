@@ -36,7 +36,8 @@ function AdminPanel() {
                                 <p className="lead">You have fully access on products Add, Delete and Edit.</p>
                                 <p className="lead">
                                     <button className='btn btn-success' onClick={() => navigate('/addproduct')} >Add Products</button><br />
-                                    <button className='btn btn-warning mt-3' onClick={handleLogout} >Log out</button>
+                                    {/* <button className='btn btn-warning mt-3' onClick={handleLogout} >Log out</button> */}
+                                    <button type="button" className="btn btn-info mt-3" onClick={() => navigate('/viewprofile')} ><i className='fa fa-user-circle user-circle' style={{ fontSize: 18 }} ></i> My Profile </button>
                                 </p>
                             </div>
                         </div>
@@ -44,7 +45,7 @@ function AdminPanel() {
                     <div className="row">
                         {/* Gallery item */}
                         {
-                           products && products.map((product) => {
+                            products && products.map((product) => {
                                 return (
                                     <div className="col-xl-3 col-lg-4 col-md-6 mb-4 admin-product" key={product._id}>
                                         <div className="bg-white rounded shadow-sm">

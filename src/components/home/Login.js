@@ -3,7 +3,7 @@ import '../../assets/css/Register.css'
 import login from '../../assets/images/login.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { loadUsers, setLoggedIn, userLoggedIn } from '../../action/action'
+import { setLoggedIn, userLoggedIn } from '../../action/action'
 import ValidateLogin from '../../container/utils/ValidateLogin';
 import ReactjsAlert from 'reactjs-alert';
 
@@ -61,15 +61,14 @@ function Login() {
     let dispatch = useDispatch();
     const { errormessage } = useSelector(state => state.data)
     const { successmessage } = useSelector(state => state.data)
+    const { isLogin } = useSelector((state) => state.data)
 
     useEffect(() => {
-        dispatch(loadUsers())
         if (successmessage) {
             setStatus(true)
             setType("success")
             setTitle(successmessage)
             dispatch(setLoggedIn())
-            navigate('/');
         }
         else if (errormessage) {
             setStatus(true)
@@ -87,6 +86,11 @@ function Login() {
 
         if (isValid) {
             dispatch(userLoggedIn({ email: email, password: password, role: "user" }))
+            if (errormessage) {
+                setStatus(true)
+                setType("error")
+                setTitle(errormessage)
+            }
         }
     }
 
@@ -133,7 +137,13 @@ function Login() {
                 status={status} // true or false
                 type={type} // success, warning, error, info
                 title={title}
-                Close={() => setStatus(false)}
+                Close={() => {
+                    if(isLogin) {
+                        setStatus(false)
+                        navigate('/')
+                    }
+                    setStatus(false)
+                }}
             />
         </>
     )

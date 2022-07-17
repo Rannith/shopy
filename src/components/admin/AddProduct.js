@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addProduct } from '../../action/action';
+import { addProduct, getProductCategory } from '../../action/action';
 import '../../assets/css/Register.css'
 
 function AddProduct() {
@@ -20,6 +20,17 @@ function AddProduct() {
 
     let dispatch = useDispatch();
     let navigate = useNavigate();
+    const { productsCategory } = useSelector(state => state.data)
+
+    console.log("Product Category : ", productsCategory.productCategory)
+
+    productsCategory.productCategory && productsCategory.productCategory.map(pro => {
+        console.log("Product category type: ", pro.productCategory)
+    })
+
+    useEffect(() => {
+        dispatch(getProductCategory())
+    }, [])
 
     const validate = () => {
         let data = document.querySelectorAll('.form-control');
@@ -84,13 +95,26 @@ function AddProduct() {
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='category'>Category<sup>*</sup></label>
-                                                <select class="form-control" aria-label="Default select example" name='productCategory' value={productCategory} onChange={handleChange}>
+                                                <select className="form-control" aria-label="Default select example" name='productCategory' value={productCategory} onChange={handleChange}>
                                                     <option value="" selected>Open this, select Category of Product</option>
+                                                    {
+                                                        productsCategory.productCategory && productsCategory.productCategory.map((option) => (
+                                                            <option value={option.productCategory}>{option.productCategory}</option>
+                                                        ))
+                                                    }
+                                                </select>
+                                                {/* <select class="form-control" aria-label="Default select example" name='productCategory' value={productCategory} onChange={handleChange}>
+                                                    <option value="" selected>Open this, select Category of Product</option>
+                                                    {
+                                                        productsCategory.productCategory && productsCategory.productCategory.map(element => {
+                                                            <option value={element.productCategory}>{element.productCategory}</option>
+                                                        })
+                                                    }
                                                     <option value="tshirt">T-Shirt</option>
                                                     <option value="suit">Suit / Blazer</option>
                                                     <option value="shoe">Shoe / Sandles</option>
                                                     <option value="watch">Watch</option>
-                                                </select>
+                                                </select> */}
                                                 <strong className='invalid-feedback' >Enter Data</strong>
                                             </div>
                                             <div className='form-group'>
@@ -100,7 +124,7 @@ function AddProduct() {
                                             </div>
                                             <div className='form-group'>
                                                 <label htmlFor='productType'>Product Type<sup>*</sup></label>
-                                                <select class="form-control" aria-label="Default select example" name='productType' value={productType} onChange={handleChange}>
+                                                <select className="form-control" aria-label="Default select example" name='productType' value={productType} onChange={handleChange}>
                                                     <option value="" selected>Open this, select Type of Product</option>
                                                     <option value="new_product">New Product</option>
                                                     <option value="popular_product">Popular Product</option>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductsToCart, loadProducts, addQuantity, setLoggedIn, viewProfile } from '../../action/action'
+import { addProductsToCart, loadProducts, getProductCategory, viewProfile } from '../../action/action'
 import '../../assets/css/Products.css'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Footer from '../shared/Footer'
@@ -24,13 +24,12 @@ const Products = React.memo(() => {
     const { user } = useSelector((state) => state.data.user)
     const { isLogin } = useSelector((state) => state.data)
     const { successmessage } = useSelector(state => state.data)
+    const { productsCategory } = useSelector(state => state.data)
 
-    console.log("USER : ", user)
+    console.log("Product Category : ", productsCategory.productCategory)
 
     const findActive = () => {
         const link = document.querySelectorAll('.nav-link-product')
-
-        console.log(link)
 
         link.forEach(element => {
             if (element.classList.contains('active')) {
@@ -44,6 +43,7 @@ const Products = React.memo(() => {
             token = jwtDecode(localStorage.getItem("token"))
             dispatch(loadProducts(category));
             dispatch(viewProfile(token.id))
+            dispatch(getProductCategory())
             handleClick()
         }
         else {
@@ -51,33 +51,51 @@ const Products = React.memo(() => {
         }
     }, [isLogin])
 
+    useEffect(() => {
+        if (successmessage !== "Successfully Login" && successmessage !== "") {
+            setStatus(true)
+            setTitle(successmessage)
+        }
+    }, [successmessage])
+
     console.log("PRODUCTS : ", products)
 
     const handleClick = (productCategory) => {
 
-
-        if (productCategory === "tshirt") {
-            findActive()
-            document.getElementById('tshirt').classList.add("active")
-            dispatch(loadProducts(productCategory));
-        } else if (productCategory === "all") {
+        if (!productCategory) {
             findActive()
             document.getElementById('all').classList.add("active")
             productCategory = undefined
             dispatch(loadProducts(productCategory));
-        } else if (productCategory === "suit") {
-            findActive()
-            document.getElementById('suit').classList.add("active")
-            dispatch(loadProducts(productCategory));
-        } else if (productCategory === "watch") {
-            findActive()
-            document.getElementById('watch').classList.add("active")
-            dispatch(loadProducts(productCategory));
-        } else if (productCategory === "shoe") {
-            findActive()
-            document.getElementById('shoe').classList.add("active")
-            dispatch(loadProducts(productCategory));
         }
+        else if (productsCategory.productCategory) {
+            findActive()
+            document.getElementById(productCategory).classList.add("active")
+            dispatch(loadProducts(productCategory));
+
+        }
+        // if (productCategory === "tshirt") {
+        //     findActive()
+        //     document.getElementById('tshirt').classList.add("active")
+        //     dispatch(loadProducts(productCategory));
+        // } else if (productCategory === "all") {
+        //     findActive()
+        //     document.getElementById('all').classList.add("active")
+        //     productCategory = undefined
+        //     dispatch(loadProducts(productCategory));
+        // } else if (productCategory === "suit") {
+        //     findActive()
+        //     document.getElementById('suit').classList.add("active")
+        //     dispatch(loadProducts(productCategory));
+        // } else if (productCategory === "watch") {
+        //     findActive()
+        //     document.getElementById('watch').classList.add("active")
+        //     dispatch(loadProducts(productCategory));
+        // } else if (productCategory === "shoe") {
+        //     findActive()
+        //     document.getElementById('shoe').classList.add("active")
+        //     dispatch(loadProducts(productCategory));
+        // }
     }
 
     const addToCart = (product, userId) => {
@@ -108,10 +126,20 @@ const Products = React.memo(() => {
                         </button>
                         <div className="collapse navbar-collapse" id="myNav">
                             <div className="navbar-nav ms-auto">
+                                {/* {
+                                    productsCategory.productCategory && productsCategory.productCategory.map((option) => {
+                                        <h1>{option.productCategory}</h1>
+                                    })
+                                } */}
                                 <a className="nav-link-product active" id="all" aria-current="page" onClick={() => handleClick("all")}>
                                     All
                                 </a>
-                                <a className="nav-link-product" id="tshirt" onClick={() => handleClick("tshirt")}>
+                                {productsCategory.productCategory && productsCategory.productCategory.map((option) => (
+                                    <a className="nav-link-product" id={option.productCategory} onClick={() => handleClick(option.productCategory)}>
+                                        {option.productCategory}
+                                    </a>
+                                ))}
+                                {/* <a className="nav-link-product" id="tshirt" onClick={() => handleClick("tshirt")}>
                                     T-Shirts
                                 </a>
                                 <a className="nav-link-product" id="suit" onClick={() => handleClick("suit")}>
@@ -122,7 +150,7 @@ const Products = React.memo(() => {
                                 </a>
                                 <a className="nav-link-product" id="shoe" onClick={() => handleClick("shoe")}>
                                     Shoes
-                                </a>
+                                </a> */}
                             </div>
                         </div>
                     </div>

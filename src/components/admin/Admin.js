@@ -62,6 +62,7 @@ function Admin() {
     const dispatch = useDispatch();
     const { errormessage } = useSelector(state => state.data)
     const { successmessage } = useSelector(state => state.data)
+    const { isLogin } = useSelector((state) => state.data)
 
     useEffect(() => {
         if (successmessage) {
@@ -69,7 +70,6 @@ function Admin() {
             setType("success")
             setTitle(successmessage)
             dispatch(setLoggedIn())
-            navigate('/adminPanel');
         }
         else if (errormessage) {
             setStatus(true)
@@ -85,6 +85,11 @@ function Admin() {
 
         if (isValid) {
             dispatch(userLoggedIn({ email: email, password: password, role: "admin" }))
+            if (errormessage) {
+                setStatus(true)
+                setType("error")
+                setTitle(errormessage)
+            }
         }
 
     }
@@ -117,7 +122,7 @@ function Admin() {
                                         </form>
                                     </div>
                                     <div className="col-md-6 d-flex align-items-center">
-                                        <img src="" alt="Admin-login" className="img-fluid" />
+                                        <img src="https://www.travelperk.com/wp-content/uploads/Guides_The-ultimate-guide-to-administrative-tasks.png" alt="Admin-login" className="img-fluid" />
                                     </div>
                                 </div>
                             </section>
@@ -129,7 +134,13 @@ function Admin() {
                 status={status} // true or false
                 type={type} // success, warning, error, info
                 title={title}
-                Close={() => setStatus(false)}
+                Close={() => {
+                    if(isLogin) {
+                        setStatus(false)
+                        navigate('/adminPanel')
+                    }
+                    setStatus(false)
+                }}
             />
         </>
     )

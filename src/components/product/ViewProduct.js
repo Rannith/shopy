@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { addProductsToCart, getSingleProduct, viewProfile } from '../../action/action';
 import '../../assets/css/ViewProduct.css'
 import jwtDecode from 'jwt-decode';
-import ValidateSession from '../../container/utils/ValidateSession';
-// import { useAlert } from 'react-alert';
 import ReactjsAlert from 'reactjs-alert';
 
 
@@ -49,6 +47,14 @@ function ViewProduct() {
         }
     }, [product])
 
+    useEffect(() => {
+        if (successmessage !== "Successfully Login" && successmessage !== "") {
+            setStatus(true)
+            setType("success")
+            setTitle(successmessage)
+        }
+    }, [successmessage])
+
     const handleCart = () => {
         setStatus(true)
         setTitle(successmessage)
@@ -68,6 +74,7 @@ function ViewProduct() {
                                         <img
                                             className="img-fluid"
                                             src={productImageUrl}
+                                            alt="Product Image"
                                         />
                                     </div>
                                     <div className="col-md-6 info">

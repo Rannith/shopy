@@ -59,12 +59,13 @@ function ViewProfile() {
         email: "",
         phone: "",
         password: "",
-        id: ""
+        id: "",
+        roleId: {}
     })
 
     console.log("state in VP :", state)
 
-    const { firstName, lastName, email, phone, password, _id } = state;
+    const { firstName, lastName, email, phone, _id, roleId } = state;
 
     useEffect(() => {
         console.log("IN ANOTHER USE EFFECT")
@@ -102,7 +103,7 @@ function ViewProfile() {
                                 <div className="d-flex justify-content-between align-items-center mb-3">
                                     <div className="d-flex flex-row align-items-center back">
                                         <i className="fa fa-long-arrow-left mr-1 mb-1" />
-                                        <NavLink to={-1}><button className='backTOHome btn' >Back to home</button></NavLink> 
+                                        <NavLink to={-1}><button className='backTOHome btn' >Go Back</button></NavLink> 
                                     </div>
                                     <button className="text-right btn btn-primary" onClick={() => navigate(`/editProfile/${_id}`)}>Edit Profile</button>
                                 </div>
@@ -124,10 +125,10 @@ function ViewProfile() {
                                 </div>
                                 <div className="row mt-3">
                                 <div className="col-md-12">
-                                        <h4>Profile Id :</h4>
+                                        <h4>Role :</h4>
                                     </div><br />
                                     <div className="col-md-6">
-                                        <h4>{_id}</h4>
+                                        <h4>{roleId.roleType}</h4>
                                     </div>
                                 </div>
                                 <div className="mt-5 text-right">
